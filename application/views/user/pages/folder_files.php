@@ -32,13 +32,13 @@
             ?>
             <div class="col-md-12 row m-0 mb-3 p-0">
                 <div class="col-md-8">
-                    <form action="<?php echo base_url() ?>filesystem/searchFiles" method="POST">
+                    <form action="<?php echo base_url() ?>FileSystem/searchFiles" method="POST">
                         <i class="fa fa-search search-folder-icon" aria-hidden="true"></i>
                         <input type="text" name="search_field" id="search_field" class="form-control border-transparent form-focus-none" placeholder="Search for folders" onchange="this.form.submit();">
                     </form>
                 </div>
                 <div class="col-md-2 col-6 text-right  mt-4 mt-md-0">
-                    <form action="<?php echo base_url() ?>filesystem/filterFiles" method="POST">
+                    <form action="<?php echo base_url() ?>FileSystem/filterFiles" method="POST">
                         <select class="form-control sort-by" onchange="this.form.submit();" name="sort_field" id="sort_field">
                             <option value="ASC_NAME">Sort By</option>
                             <option value="ASC_NAME">A-Z</option>
@@ -50,6 +50,11 @@
                 <div class="col-md-2 col-6  text-right  mt-4 mt-md-0">
                     <span class="view-btn cursor" data-toggle="modal" data-target="#upload-file"> + Upload File</span>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href="<?php echo base_url() ?>FileSystem"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to folders</a>
             </div>
         </div>
         <div class="row mt-3">
@@ -96,7 +101,7 @@
                                             ?>
 
                                             <?php
-                                            if ($file->file_ext == 'png' || $file->file_ext == 'png') {
+                                            if ($file->file_ext == 'png' || $file->file_ext == 'jpg') {
                                             ?>
                                                 <i class="fa fa-file-image-o" aria-hidden="true" style="color: #36c684"></i>
                                             <?php
@@ -135,7 +140,7 @@
                                                     <a href="<?php echo base_url() . 'uploads/' . $file->file_name ?>" class="file-dl-toast"><i class="fa fa-download" aria-hidden="true"></i><span>Download</span></a>
                                                 </li>
                                                 <li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> <span>Rename</span></a></li>
-                                                <a href="<?php echo base_url() . 'filesystem/deleteFile/' . $file->id.'/'.$file->folder_id; ?>" onclick="return confirm('Are you sure to delete this file?')">
+                                                <a href="<?php echo base_url() . 'FileSystem/deleteFile/' . $file->id . '/' . $file->folder_id; ?>" onclick="return confirm('Are you sure to delete this file?')">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                     <span>Delete</span>
                                                 </a>
@@ -145,11 +150,10 @@
                                 </div>
                             </div>
                         </div>
-                <?php
+                    <?php
                     }
-                }
-                else{
-                ?>  
+                } else {
+                    ?>
                     <h1 class="text-danger text-center">empty folder</h1>
                 <?php
                 }
@@ -170,7 +174,7 @@
                 <h5 class="modal-title">Upload File</h5>
                 <button type="button" class="close cursor" data-dismiss="modal">&times;</button>
             </div>
-            <form action="<?php echo base_url() ?>filesystem/uploadFiles" method="POST" enctype="multipart/form-data">
+            <form action="<?php echo base_url() ?>FileSystem/uploadFiles" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" value="<?php echo $folder_id; ?>" name="folder_id_field" id="folder_id_field" />
                     <input type="file" class="form-control" name="images[]" id="files_field" multiple required />

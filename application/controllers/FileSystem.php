@@ -41,11 +41,11 @@ class FileSystem extends MY_Controller
             if ($result == false) {
 
                 $this->session->set_flashdata("folder_err", "Oh Snap! Folder creation failed. Please try again!");
-                redirect('filesystem', 'refresh');
+                redirect('FileSystem', 'refresh');
             } else {
 
                 $this->session->set_flashdata("folder_succ", "Heads Up! Folder created successfully.");
-                redirect('filesystem', 'refresh');
+                redirect('FileSystem', 'refresh');
             }
         } else {
             $this->index();
@@ -68,11 +68,11 @@ class FileSystem extends MY_Controller
             if ($result == false) {
 
                 $this->session->set_flashdata("folder_rename_err", "Oh Snap! Folder rename failed. Please try again!");
-                redirect('filesystem', 'refresh');
+                redirect('FileSystem', 'refresh');
             } else {
 
                 $this->session->set_flashdata("folder_rename_succ", "Heads Up! Folder renamed successfully.");
-                redirect('filesystem', 'refresh');
+                redirect('FileSystem', 'refresh');
             }
         } else {
             $this->index();
@@ -86,10 +86,10 @@ class FileSystem extends MY_Controller
 
         if ($value == true) {
             $this->session->set_flashdata('folder_delete_succ', '<b>Heads up!</b> Folder deleted successfully.');
-            redirect('filesystem', 'refresh');
+            redirect('FileSystem', 'refresh');
         } else {
             $this->session->set_flashdata('folder_delete_err', '<b>Oh Snap!</b> Folder not is deleted. Please try again!');
-            redirect('filesystem', 'refresh');
+            redirect('FileSystem', 'refresh');
         }
     }
 
@@ -154,14 +154,14 @@ class FileSystem extends MY_Controller
             if (!empty($_FILES['images']['name'][0])) {
                 if ($this->upload_files($folder_id, $_FILES['images']) === FALSE) {
                     $this->session->set_flashdata('file_upload_err', '<b>Heads up!</b> Files are not uploaded to folder. Please try again!');
-                    redirect('filesystem/viewFolder/' . $folder_id, 'refresh');
+                    redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
                 } else {
                     $this->session->set_flashdata('file_upload_succ', '<b>Heads up!</b> Files uploaded to folder successfully.');
-                    redirect('filesystem/viewFolder/' . $folder_id, 'refresh');
+                    redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
                 }
             } else {
                 $this->session->set_flashdata('file_upload_err', '<b>Heads up!</b> Files are not uploaded to folder. Please try again!');
-                redirect('filesystem/viewFolder/' . $folder_id, 'refresh');
+                redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
             }
         } else {
             $this->index();
@@ -254,10 +254,10 @@ class FileSystem extends MY_Controller
 
         if ($value == true) {
             $this->session->set_flashdata('file_delete_succ', '<b>Heads up!</b> File deleted successfully.');
-            redirect('filesystem/viewFolder/' . $folder_id, 'refresh');
+            redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
         } else {
             $this->session->set_flashdata('file_delete_err', '<b>Oh Snap!</b> File not is deleted. Please try again!');
-            redirect('filesystem/viewFolder/' . $folder_id, 'refresh');
+            redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
         }
     }
 }

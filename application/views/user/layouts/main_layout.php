@@ -74,7 +74,7 @@
                                                                       echo $_SESSION['logged_in_name'];
                                                                     } ?> <i class="fa fa-caret-down" aria-hidden="true"></i></button>
                     <div id="myDropdown" class="dropdown-content">
-                      <a href="<?php echo base_url() ?>filesystem">File System</a>
+                      <a href="<?php echo base_url() ?>FileSystem">File System</a>
                       <a href="<?php echo base_url() ?>account/myAccount">Profile</a>
                       <a href="<?php echo base_url() ?>account/logout">Logout</a>
                     </div>

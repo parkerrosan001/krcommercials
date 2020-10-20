@@ -64,13 +64,13 @@
             </div>
             <div class="col-md-12 row m-0 mb-3 p-0">
                 <div class="col-md-8">
-                    <form action="<?php echo base_url() ?>filesystem/searchFolders" method="POST">
+                    <form action="<?php echo base_url() ?>FileSystem/searchFolders" method="POST">
                         <i class="fa fa-search search-folder-icon" aria-hidden="true"></i>
                         <input type="text" name="search_field" id="search_field" class="form-control border-transparent form-focus-none" placeholder="Search for files" onchange="this.form.submit();">
                     </form>
                 </div>
                 <div class="col-md-2 col-6 text-right  mt-4 mt-md-0">
-                    <form action="<?php echo base_url() ?>filesystem/filterFolders" method="POST">
+                    <form action="<?php echo base_url() ?>FileSystem/filterFolders" method="POST">
                         <select class="form-control sort-by" onchange="this.form.submit();" name="sort_field" id="sort_field">
                             <option value="ASC_NAME">Sort By</option>
                             <option value="ASC_NAME">A-Z</option>
@@ -99,7 +99,7 @@
                                         <div class="dropdown-menu dropdown-menu-right p-0">
                                             <ul class="link-list-plain no-bdr">
                                                 <li>
-                                                    <a href="<?php echo base_url() . 'filesystem/viewFolder/' . $folder->id; ?>" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i><span>Open</span>
+                                                    <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->id; ?>" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i><span>Open</span>
                                                     </a>
                                                 </li>
                                                 <li>
@@ -108,7 +108,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="<?php echo base_url() . 'filesystem/deleteFolder/' . $folder->id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
+                                                    <a href="<?php echo base_url() . 'FileSystem/deleteFolder/' . $folder->id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                         <span>Delete</span>
                                                     </a>
@@ -119,10 +119,10 @@
                                 </div>
                             </div>
                             <div class="folder-icon">
-                                <a href="<?php echo base_url() . 'filesystem/viewFolder/' . $folder->id; ?>"> <i class="fa fa-folder" aria-hidden="true"></i></a>
+                                <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->id; ?>"> <i class="fa fa-folder" aria-hidden="true"></i></a>
                             </div>
                             <div class="folder-name">
-                                <a href="<?php echo base_url() . 'filesystem/viewFolder/' . $folder->id; ?>"> <span class="folder-title"><?php echo $folder->folder_name; ?></span></a>
+                                <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->id; ?>"> <span class="folder-title"><?php echo $folder->folder_name; ?></span></a>
                             </div>
                         </div>
 
@@ -192,7 +192,7 @@
 <div id="create-folder" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
-        <form method="post" action="<?php echo base_url() ?>filesystem/createFolder">
+        <form method="post" action="<?php echo base_url() ?>FileSystem/createFolder">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Create Folder</h5>
@@ -215,7 +215,7 @@
 <div id="renameFolder" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
-        <form method="post" action="<?php echo base_url() ?>filesystem/renameFolder" id="renameFolderForm">
+        <form method="post" action="<?php echo base_url() ?>FileSystem/renameFolder" id="renameFolderForm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Rename Folder</h5>
