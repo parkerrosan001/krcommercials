@@ -74,7 +74,7 @@
                                                                       echo $_SESSION['logged_in_name'];
                                                                     } ?> <i class="fa fa-caret-down" aria-hidden="true"></i></button>
                     <div id="myDropdown" class="dropdown-content">
-                      <a href="#">File System</a>
+                      <a href="<?php echo base_url() ?>filesystem">File System</a>
                       <a href="<?php echo base_url() ?>account/myAccount">Profile</a>
                       <a href="<?php echo base_url() ?>account/logout">Logout</a>
                     </div>
@@ -169,6 +169,21 @@
   <script src="<?php echo base_url() ?>assets/js/plugins.js"></script>
   <script src="<?php echo base_url() ?>assets/js/scripts.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_QD2_rlwEFGhCK0oj2n6cixsvX0D3zgk"></script>
+  <script src="<?php echo base_url() ?>assets/admin_assets/file_system.js"></script>
+
+  <script>
+    $(function() {
+      $('.file-input').on('change', function(e) {
+        var file = this.files[0]
+        $('#file-list-' + $(this).data('id')).append('<span>' + file.name + '</span>')
+      })
+
+      $('.file-input-button').on('click', function(e) {
+        $('#file-input-' + $(this).data('id')).trigger('click');
+      })
+    })
+  </script>
+
   <script>
     function initialize() {
       var mapOptions = {
