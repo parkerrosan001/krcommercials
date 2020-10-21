@@ -13,7 +13,7 @@ class Login extends MY_Controller
     public function index()
     {
 
-        if (!isset($_SESSION['logged_in_id'])) {
+        if (!isset($_SESSION['logged_in_admin_id'])) {
 
             $data['view_to_load'] = "admin/pages/login";
             $data['page_title'] = "Admin Login";

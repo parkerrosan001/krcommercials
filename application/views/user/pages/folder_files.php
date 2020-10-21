@@ -30,15 +30,49 @@
             <?php
             }
             ?>
+
+            <?php
+            if (isset($_SESSION['file_delete_err'])) {
+            ?>
+                <div class="alert alert-danger"><?php echo $_SESSION['file_delete_err'] ?></div>
+            <?php
+            }
+            ?>
+
+            <?php
+            if (isset($_SESSION['file_delete_succ'])) {
+            ?>
+                <div class="alert alert-success"><?php echo $_SESSION['file_delete_succ'] ?></div>
+            <?php
+            }
+            ?>
+
+            <?php
+            if (isset($_SESSION['file_rename_err'])) {
+            ?>
+                <div class="alert alert-danger"><?php echo $_SESSION['file_rename_err'] ?></div>
+            <?php
+            }
+            ?>
+
+            <?php
+            if (isset($_SESSION['file_rename_succ'])) {
+            ?>
+                <div class="alert alert-success"><?php echo $_SESSION['file_rename_succ'] ?></div>
+            <?php
+            }
+            ?>
             <div class="col-md-12 row m-0 mb-3 p-0">
                 <div class="col-md-8">
                     <form action="<?php echo base_url() ?>FileSystem/searchFiles" method="POST">
                         <i class="fa fa-search search-folder-icon" aria-hidden="true"></i>
+                        <input type="hidden" value="<?php echo $folder_id; ?>" name="folder_id_field" id="folder_id_field" />
                         <input type="text" name="search_field" id="search_field" class="form-control border-transparent form-focus-none" placeholder="Search for folders" onchange="this.form.submit();">
                     </form>
                 </div>
                 <div class="col-md-2 col-6 text-right  mt-4 mt-md-0">
                     <form action="<?php echo base_url() ?>FileSystem/filterFiles" method="POST">
+                        <input type="hidden" value="<?php echo $folder_id; ?>" name="folder_id_field" id="folder_id_field" />
                         <select class="form-control sort-by" onchange="this.form.submit();" name="sort_field" id="sort_field">
                             <option value="ASC_NAME">Sort By</option>
                             <option value="ASC_NAME">A-Z</option>
@@ -73,45 +107,34 @@
                                             ?>
                                                 <i class="fa fa-file-pdf-o" aria-hidden="true" style="color: #36c684"></i>
                                             <?php
-                                            }
-                                            ?>
-
-                                            <?php
-                                            if ($file->file_ext == 'xlxs') {
+                                            } else if ($file->file_ext == 'xlxs') {
                                             ?>
                                                 <i class="fa fa-file-excel-o" aria-hidden="true" style="color: #36c684"></i>
                                             <?php
-                                            }
-                                            ?>
-
-                                            <?php
-                                            if ($file->file_ext == 'doc') {
+                                            } else if ($file->file_ext == 'doc') {
                                             ?>
                                                 <i class="fa fa-file-word-o" aria-hidden="true" style="color: #36c684"></i>
                                             <?php
-                                            }
-                                            ?>
-
-                                            <?php
-                                            if ($file->file_ext == 'ppt') {
+                                            } else if ($file->file_ext == 'ppt') {
                                             ?>
                                                 <i class="fa fa-file-powerpoint-o" aria-hidden="true" style="color: #36c684"></i>
                                             <?php
-                                            }
-                                            ?>
-
-                                            <?php
-                                            if ($file->file_ext == 'png' || $file->file_ext == 'jpg') {
+                                            } else if ($file->file_ext == 'png' || $file->file_ext == 'jpg' || $file->file_ext == 'jpeg') {
                                             ?>
                                                 <i class="fa fa-file-image-o" aria-hidden="true" style="color: #36c684"></i>
                                             <?php
+                                            } else {
+                                            ?>
+                                                <i class="fa fa-file" aria-hidden="true"></i>
+                                            <?php
                                             }
+
                                             ?>
 
                                         </div>
                                         <div class="r-file-name">
                                             <div class="r-file-name-text">
-                                                <a href="<?php echo base_url() . 'uploads/' . $file->file_name ?>" target="_blank" class="title"><?php echo $file->file_name; ?></a>
+                                                <a href="<?php echo base_url() . 'uploads/' . $file->file_name ?>" target="_blank" class="title"><?php echo $file->display_name; ?></a>
                                             </div>
                                         </div>
                                     </div>
@@ -139,11 +162,18 @@
                                                 <li>
                                                     <a href="<?php echo base_url() . 'uploads/' . $file->file_name ?>" class="file-dl-toast"><i class="fa fa-download" aria-hidden="true"></i><span>Download</span></a>
                                                 </li>
-                                                <li><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> <span>Rename</span></a></li>
-                                                <a href="<?php echo base_url() . 'FileSystem/deleteFile/' . $file->id . '/' . $file->folder_id; ?>" onclick="return confirm('Are you sure to delete this file?')">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    <span>Delete</span>
-                                                </a>
+                                                <li>
+                                                    <a data-toggle="modal" id="<?php echo $file->id; ?>" base_url="<?php echo $file->display_name; ?>" folder_id="<?php echo $file->folder_id; ?>" class="editFile">
+                                                        <i class="fa fa-pencil" aria-hidden="true"></i> <span>Rename</span>
+                                                    </a>
+                                                    <!-- <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> <span>Rename</span></a> -->
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo base_url() . 'FileSystem/deleteFile/' . $file->id . '/' . $file->folder_id; ?>" onclick="return confirm('Are you sure to delete this file?')">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -187,3 +217,28 @@
     </div>
 </div>
 <!-- End Upload Files-->
+
+<!--Create Folder -->
+<div id="renameFile" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <form method="post" action="<?php echo base_url() ?>FileSystem/renameFile" id="renameFileForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rename File</h5>
+                    <button type="button" class="close cursor" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <label>File Name</label>
+                    <input type="hidden" name="id_field" id="id_field">
+                    <input type="hidden" name="fol_id_field" id="fol_id_field">
+                    <input class="form-control" type="text" name="rename_file_name_field" id="rename_file_name_field" placeholder="enter file name" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default view-btn cursor" name="rename_file_btn" id="rename_file_btn">Rename File</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Create Folder-->

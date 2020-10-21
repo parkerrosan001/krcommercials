@@ -8,7 +8,7 @@ class FileSystem extends MY_Controller
     {
         parent::__construct();
         if (!isset($_SESSION['logged_in_id'])) {
-            redirect('admin/login', 'refresh');
+            redirect('account', 'refresh');
         }
         $this->session->set_userdata('current_page', 'File System');
         $this->load->model("admin/FileSystemModel", "file_m");
@@ -33,7 +33,8 @@ class FileSystem extends MY_Controller
 
             $data = array(
                 'acc_id' => $_SESSION['logged_in_id'],
-                'folder_name' => $folder_name
+                'folder_name' => $folder_name,
+                'branch' => $_SESSION['logged_in_user_branch']
             );
 
             $result = $this->file_m->createFolder($data);
@@ -196,6 +197,7 @@ class FileSystem extends MY_Controller
                     'acc_id' => $_SESSION['logged_in_id'],
                     'folder_id' => $folder_id,
                     'file_name' => $attachmentData['file_name'],
+                    'display_name' => $attachmentData['file_name'],
                     'file_ext' => pathinfo($image, PATHINFO_EXTENSION),
                     'file_size' => $files['size'][$key],
                     'branch' => $_SESSION['logged_in_user_branch']
@@ -213,6 +215,7 @@ class FileSystem extends MY_Controller
     {
 
         $filter = $this->input->post('sort_field');
+        $folder_id = $this->input->post('folder_id_field');
 
         if ($filter == 'ASC_DATE') {
 
@@ -226,11 +229,12 @@ class FileSystem extends MY_Controller
             $order_by = 'DESC';
         }
 
-        $files_data = $this->file_m->sortFiles($column, $order_by);
+        $files_data = $this->file_m->sortFiles($column, $order_by, $folder_id);
 
         $data['view_to_load'] = "user/pages/folder_files";
         $data['page_title'] = "File System";
         $data['files_data'] = $files_data;
+        $data['folder_id'] = $folder_id;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -238,16 +242,18 @@ class FileSystem extends MY_Controller
     {
 
         $search = $this->input->post('search_field');
+        $folder_id = $this->input->post('folder_id_field');
 
-        $files_data = $this->file_m->searchFiles($search);
+        $files_data = $this->file_m->searchFiles($search, $folder_id);
 
         $data['view_to_load'] = "user/pages/folder_files";
         $data['page_title'] = "File System";
         $data['files_data'] = $files_data;
+        $data['folder_id'] = $folder_id;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
-    public function deleteFile($id,$folder_id)
+    public function deleteFile($id, $folder_id)
     {
 
         $value = $this->file_m->deleteFile($id);
@@ -258,6 +264,34 @@ class FileSystem extends MY_Controller
         } else {
             $this->session->set_flashdata('file_delete_err', '<b>Oh Snap!</b> File not is deleted. Please try again!');
             redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+        }
+    }
+
+    public function renameFile()
+    {
+
+        if (isset($_POST['rename_file_btn'])) {
+            $file_name = $this->input->post('rename_file_name_field');
+            $id = $this->input->post('id_field');
+            $folder_id = $this->input->post('fol_id_field');
+
+            $data = array(
+                'display_name' => $file_name
+            );
+
+            $result = $this->file_m->renameFile($id, $data);
+
+            if ($result == false) {
+
+                $this->session->set_flashdata("file_rename_err", "Oh Snap! File rename failed. Please try again!");
+                redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+            } else {
+
+                $this->session->set_flashdata("file_rename_succ", "Heads Up! File renamed successfully.");
+                redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+            }
+        } else {
+            $this->index();
         }
     }
 }

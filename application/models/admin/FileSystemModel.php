@@ -129,10 +129,11 @@ class FileSystemModel extends CI_Model
         }
     }
 
-    public function sortFiles($column, $order_by)
+    public function sortFiles($column, $order_by, $folder_id)
     {
         $this->db->select("*");
         $this->db->from('files_tbl');
+        $this->db->where('folder_id', $folder_id);
         $this->db->order_by($column, $order_by);
         $result = $this->db->get();
         $files_data =  $result->result();
@@ -146,10 +147,11 @@ class FileSystemModel extends CI_Model
         }
     }
 
-    public function searchFiles($search)
+    public function searchFiles($search, $folder_id)
     {
         $this->db->select("*");
         $this->db->from('files_tbl');
+        $this->db->where('folder_id', $folder_id);
         $this->db->like('file_name', $search);
         $result = $this->db->get();
         $files_data =  $result->result();
@@ -167,6 +169,18 @@ class FileSystemModel extends CI_Model
     {
         $this->db->where('id', $id);
         $result = $this->db->delete('files_tbl');
+
+        if ($result == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function renameFile($id, $data)
+    {
+        $this->db->where('id', $id);
+        $result = $this->db->update('files_tbl', $data);
 
         if ($result == true) {
             return true;

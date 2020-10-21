@@ -90,6 +90,17 @@
                         </li>
 
                         <li class="nav-item has-treeview">
+                            <a href="<?php echo base_url() ?>admin/FileSystem" class="nav-link <?php if ($_SESSION['current_page'] == 'File System') {
+                                                                                                    echo 'active';
+                                                                                                } ?>">
+                                <i class="nav-icon fas fa-list" aria-hidden="true"></i>
+                                <p>
+                                    File System
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item has-treeview">
                             <a href="<?php echo base_url() ?>admin/users" class="nav-link <?php if ($_SESSION['current_page'] == 'Users') {
                                                                                                 echo 'active';
                                                                                             } ?>">
@@ -296,6 +307,7 @@
     <script src="<?php echo base_url() ?>assets/admin_assets/manage_projects.js"></script>
     <script src="<?php echo base_url() ?>assets/admin_assets/manage_staff.js"></script>
     <script src="<?php echo base_url() ?>assets/admin_assets/manage_services.js"></script>
+    <script src="<?php echo base_url() ?>assets/admin_assets/file_system.js"></script>
 
     <script>
         $(function() {
