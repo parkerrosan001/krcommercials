@@ -18,10 +18,12 @@ class FileSystem extends MY_Controller
     {
 
         $folders_data = $this->file_m->fetchAllFolders();
+        $recent_files_data = $this->file_m->fetchRecentFiles();
 
         $data['view_to_load'] = "user/pages/files_system";
         $data['page_title'] = "File System";
         $data['folders_data'] = $folders_data;
+        $data['recent_files_data'] = $recent_files_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -103,6 +105,9 @@ class FileSystem extends MY_Controller
 
             $column = 'created_at';
             $order_by = 'ASC';
+        } elseif ($filter == 'DESC_DATE') {
+            $column = 'created_at';
+            $order_by = 'DESC';
         } elseif ($filter == 'ASC_NAME') {
             $column = 'folder_name';
             $order_by = 'ASC';
@@ -136,11 +141,13 @@ class FileSystem extends MY_Controller
     {
 
         $files_data = $this->file_m->fetchFolderFiles($id);
+        $folder_name = $this->file_m->fetchFolderName($id);
 
         $data['view_to_load'] = "user/pages/folder_files";
         $data['page_title'] = "File System";
         $data['files_data'] = $files_data;
         $data['folder_id'] = $id;
+        $data['folder_name'] = $folder_name->folder_name;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -221,6 +228,9 @@ class FileSystem extends MY_Controller
 
             $column = 'created_at';
             $order_by = 'ASC';
+        } elseif ($filter == 'DESC_DATE') {
+            $column = 'created_at';
+            $order_by = 'DESC';
         } elseif ($filter == 'ASC_NAME') {
             $column = 'file_name';
             $order_by = 'ASC';
@@ -230,11 +240,13 @@ class FileSystem extends MY_Controller
         }
 
         $files_data = $this->file_m->sortFiles($column, $order_by, $folder_id);
+        $folder_name = $this->file_m->fetchFolderName($folder_id);
 
         $data['view_to_load'] = "user/pages/folder_files";
         $data['page_title'] = "File System";
         $data['files_data'] = $files_data;
         $data['folder_id'] = $folder_id;
+        $data['folder_name'] = $folder_name->folder_name;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -245,11 +257,13 @@ class FileSystem extends MY_Controller
         $folder_id = $this->input->post('folder_id_field');
 
         $files_data = $this->file_m->searchFiles($search, $folder_id);
+        $folder_name = $this->file_m->fetchFolderName($folder_id);
 
         $data['view_to_load'] = "user/pages/folder_files";
         $data['page_title'] = "File System";
         $data['files_data'] = $files_data;
         $data['folder_id'] = $folder_id;
+        $data['folder_name'] = $folder_name->folder_name;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -272,7 +286,7 @@ class FileSystem extends MY_Controller
 
         if (isset($_POST['rename_file_btn'])) {
             $file_name = $this->input->post('rename_file_name_field');
-            $id = $this->input->post('id_field');
+            $id = $this->input->post('f_id_field');
             $folder_id = $this->input->post('fol_id_field');
 
             $data = array(
@@ -289,6 +303,38 @@ class FileSystem extends MY_Controller
 
                 $this->session->set_flashdata("file_rename_succ", "Heads Up! File renamed successfully.");
                 redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+            }
+        } else {
+            $this->index();
+        }
+    }
+
+    public function createSubFolder()
+    {
+
+        if (isset($_POST['create_sub_folder_btn'])) {
+
+            $parrent_folder = $this->input->post('parrent_folder_field');
+            $folder_name = $this->input->post('folder_name_field');
+
+            $data = array(
+                'acc_id' => $_SESSION['logged_in_id'],
+                'folder_id' => $parrent_folder,
+                'display_name' => $folder_name,
+                'type' => 'Folder',
+                'branch' => $_SESSION['logged_in_user_branch']
+            );
+
+            $result = $this->file_m->createSubFolder($data);
+
+            if ($result == false) {
+
+                $this->session->set_flashdata("sub_folder_err", "Oh Snap! Sub-Folder creation failed. Please try again!");
+                redirect('FileSystem/viewFolder/' . $parrent_folder, 'refresh');
+            } else {
+
+                $this->session->set_flashdata("sub_folder_succ", "Heads Up! Sub-Folder created successfully.");
+                redirect('FileSystem/viewFolder/' . $parrent_folder, 'refresh');
             }
         } else {
             $this->index();

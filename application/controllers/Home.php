@@ -9,6 +9,8 @@ class Home extends MY_Controller
 		parent::__construct();
 
 		$this->session->set_userdata('current_page', 'Home');
+		$this->load->model('admin/ProjectModel', 'proj_m');
+		$this->load->model('admin/ServiceModel', 'service_m');
 	}
 
 	public function index()
@@ -45,8 +47,32 @@ class Home extends MY_Controller
 
 	public function homePage()
 	{
+
+		if (isset($_SESSION['selected_branch'])) {
+			if ($_SESSION['selected_branch'] == 'FL') {
+				$projects_data = $this->proj_m->fetchAllProjectsByBranch('FL');
+				$proj_page_data = $this->proj_m->fetchFLProjectPageContent();
+				$services_data = $this->service_m->fetchAllProjectServicesByBranch('FL');
+				$ser_page_data = $this->service_m->fetchFLServicesPageContent();
+			} else {
+				$projects_data = $this->proj_m->fetchAllProjectsByBranch('CAL');
+				$proj_page_data = $this->proj_m->fetchFLProjectPageContent();
+				$services_data = $this->service_m->fetchAllProjectServicesByBranch('CAL');
+				$ser_page_data = $this->service_m->fetchFLServicesPageContent();
+			}
+		} else {
+			$projects_data = $this->proj_m->fetchAllProjectsByBranch('FL');
+			$proj_page_data = $this->proj_m->fetchFLProjectPageContent();
+			$services_data = $this->service_m->fetchAllProjectServicesByBranch('FL');
+			$ser_page_data = $this->service_m->fetchFLServicesPageContent();
+		}
+
 		$data['view_to_load'] = "user/pages/landing";
 		$data['page_title'] = "Home";
+		$data['projects_data'] = $projects_data;
+		$data['proj_page_data'] = $proj_page_data;
+		$data['services_data'] = $services_data;
+		$data['ser_page_data'] = $ser_page_data;
 		$this->load->view('user/layouts/main_layout', $data);
 	}
 }

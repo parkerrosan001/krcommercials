@@ -119,7 +119,7 @@
             <div class="footer-widget footer-menu">
               <h4 class="widget-title">Services</h4>
               <ul>
-                <li><a href="<?php echo base_url() ?>home/landing">Home</a></li>
+                <li><a href="<?php echo $url; ?>">Home</a></li>
                 <li><a href="<?php echo base_url() ?>services">Services</a></li>
                 <li><a href="<?php echo base_url() ?>projects">Projects</a></li>
                 <li><a href="<?php echo base_url() ?>staff">Our Staff</a></li>
@@ -145,9 +145,15 @@
                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li><br>
-                <h4 class="widget-title">Have an account?</h4>
-                <li><a href="<?php echo base_url() ?>account" class="login-btn">Sign In</a></li>
-                <li><a href="<?php echo base_url() ?>account/signup" class="login-btn">Sign Up</a></li>
+                <?php
+                if (!isset($_SESSION['logged_in_id'])) {
+                ?>
+                  <h4 class="widget-title">Have an account?</h4>
+                  <li><a href="<?php echo base_url() ?>account" class="login-btn">Sign In</a></li>
+                  <li><a href="<?php echo base_url() ?>account/signup" class="login-btn">Sign Up</a></li>
+                <?php
+                }
+                ?>
               </ul>
             </div>
           </div>

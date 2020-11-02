@@ -37,6 +37,42 @@ class FileSystemModel extends CI_Model
         }
     }
 
+    public function fetchFolderName($id)
+    {
+        $this->db->select("folder_name");
+        $this->db->from('folders_tbl');
+        $this->db->where('id', $id);
+        $result = $this->db->get();
+        $folder_name =  $result->row();
+
+        if (!empty($folder_name)) {
+
+            return $folder_name;
+        } else {
+
+            return false;
+        }
+    }
+
+    public function fetchRecentFiles()
+    {
+        $this->db->select("*");
+        $this->db->from('files_tbl');
+        $this->db->where('type','File');
+        $this->db->order_by('id', 'DESC');
+        $this->db->limit('12');
+        $result = $this->db->get();
+        $recent_files_data =  $result->result();
+
+        if (!empty($recent_files_data)) {
+
+            return $recent_files_data;
+        } else {
+
+            return false;
+        }
+    }
+
     public function sortFolders($column, $order_by)
     {
         $this->db->select("*");
@@ -179,12 +215,27 @@ class FileSystemModel extends CI_Model
 
     public function renameFile($id, $data)
     {
+        echo $id;
+        exit;
         $this->db->where('id', $id);
         $result = $this->db->update('files_tbl', $data);
 
         if ($result == true) {
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public function createSubFolder($data)
+    {
+
+        $result = $this->db->insert('files_tbl', $data);
+
+        if ($result ==  true) {
+            return true;
+        } else {
+
             return false;
         }
     }

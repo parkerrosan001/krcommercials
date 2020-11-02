@@ -29,37 +29,31 @@
                     <div class="col-lg-3 col-md-4  col-sm-6 col-12">
                         <div class="team-wrap">
                             <div class="team-img">
-                                <img src="<?php echo base_url().'uploads/'.$staff->staff_image; ?>" alt="">
+                                <img src="<?php echo base_url() . 'uploads/' . $staff->staff_image; ?>" alt="">
                             </div>
                             <div class="team-content">
                                 <h4><?php echo $staff->full_name; ?></h4>
                                 <p><?php echo $staff->designation; ?></p>
                                 <ul>
                                     <?php
-                                        if($staff->facebook != ''){
-                                            $facebook_url = $staff->facebook;
-                                        }
-                                        else{
-                                            $facebook_url = '#';
-                                        }
-
-                                        if($staff->twitter != ''){
-                                            $twitter_url = $staff->twitter;
-                                        }
-                                        else{
-                                            $twitter_url = '#';
-                                        }
-
-                                        if($staff->google_plus != ''){
-                                            $google_plus_url = $staff->google_plus;
-                                        }
-                                        else{
-                                            $google_plus_url = '#';
-                                        }
+                                    if ($staff->facebook != '') {
                                     ?>
-                                    <li><a href="<?php echo $facebook_url; ?>"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="<?php echo $twitter_url; ?>"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="<?php echo $google_plus_url; ?>"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="<?php echo $staff->facebook; ?>"><i class="fa fa-facebook"></i></a></li>
+                                    <?php
+                                    }
+
+                                    if ($staff->twitter != '') {
+                                    ?>
+                                        <li><a href="<?php echo $staff->twitter; ?>"><i class="fa fa-twitter"></i></a></li>
+                                    <?php
+                                    }
+
+                                    if ($staff->google_plus != '') {
+                                    ?>
+                                        <li><a href="<?php echo $staff->google_plus; ?>"><i class="fa fa-google-plus"></i></a></li>
+                                    <?php
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                         </div>

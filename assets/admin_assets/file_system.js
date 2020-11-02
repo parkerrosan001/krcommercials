@@ -47,3 +47,11 @@ $(document).on("click", ".renameFile", function () {
 	$("#rename_file_name_field").val(file_name);
 	$("#folder_edit_branch_field").val(branch);
 });
+
+$(document).on("click", ".createSubFolder", function () {
+	var parrent_folder = $(this).attr("parrent_folder_id");
+
+	$("#SubFolderForm").trigger("reset");
+	$("#SubFolder").modal("show");
+	$("#parrent_folder_field").val(parrent_folder);
+});
