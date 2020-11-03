@@ -11,6 +11,7 @@ class Home extends MY_Controller
 		$this->session->set_userdata('current_page', 'Home');
 		$this->load->model('admin/ProjectModel', 'proj_m');
 		$this->load->model('admin/ServiceModel', 'service_m');
+		$this->load->model('admin/ContentModel', 'content_m');
 	}
 
 	public function index()
@@ -54,17 +55,29 @@ class Home extends MY_Controller
 				$proj_page_data = $this->proj_m->fetchFLProjectPageContent();
 				$services_data = $this->service_m->fetchAllProjectServicesByBranch('FL');
 				$ser_page_data = $this->service_m->fetchFLServicesPageContent();
+				$slider_data = $this->content_m->fetchFLSliders();
+				$welcome_section_data = $this->content_m->fetchFLWelcomeSectionContent();
+				$special_section_data = $this->content_m->fetchFLSpecialSectionContent();
+				$contact_us_data = $this->content_m->fetchFlContactUsContent();
 			} else {
 				$projects_data = $this->proj_m->fetchAllProjectsByBranch('CAL');
 				$proj_page_data = $this->proj_m->fetchFLProjectPageContent();
 				$services_data = $this->service_m->fetchAllProjectServicesByBranch('CAL');
 				$ser_page_data = $this->service_m->fetchFLServicesPageContent();
+				$slider_data = $this->content_m->fetchCALSliders();
+				$welcome_section_data = $this->content_m->fetchCALWelcomeSectionContent();
+				$special_section_data = $this->content_m->fetchCALSpecialSectionContent();
+				$contact_us_data = $this->content_m->fetchCalContactUsContent();
 			}
 		} else {
 			$projects_data = $this->proj_m->fetchAllProjectsByBranch('FL');
 			$proj_page_data = $this->proj_m->fetchFLProjectPageContent();
 			$services_data = $this->service_m->fetchAllProjectServicesByBranch('FL');
 			$ser_page_data = $this->service_m->fetchFLServicesPageContent();
+			$slider_data = $this->content_m->fetchFLSliders();
+			$welcome_section_data = $this->content_m->fetchFLWelcomeSectionContent();
+			$special_section_data = $this->content_m->fetchFLSpecialSectionContent();
+			$contact_us_data = $this->content_m->fetchFlContactUsContent();
 		}
 
 		$data['view_to_load'] = "user/pages/landing";
@@ -73,6 +86,10 @@ class Home extends MY_Controller
 		$data['proj_page_data'] = $proj_page_data;
 		$data['services_data'] = $services_data;
 		$data['ser_page_data'] = $ser_page_data;
+		$data['slider_data'] = $slider_data;
+		$data['special_section_data'] = $special_section_data;
+		$data['welcome_section_data'] = $welcome_section_data;
+		$data['contact_us_data'] = $contact_us_data;
 		$this->load->view('user/layouts/main_layout', $data);
 	}
 }

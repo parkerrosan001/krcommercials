@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class FileSystem extends MY_Controller
 {
+    public $contact_us_data;
 
     public function __construct()
     {
@@ -12,6 +13,17 @@ class FileSystem extends MY_Controller
         }
         $this->session->set_userdata('current_page', 'File System');
         $this->load->model("admin/FileSystemModel", "file_m");
+        $this->load->model('admin/ContentModel', 'content_m');
+
+        if (isset($_SESSION['selected_branch'])) {
+            if ($_SESSION['selected_branch'] == 'FL') {
+                $this->contact_us_data = $this->content_m->fetchFlContactUsContent();
+            } else {
+                $this->contact_us_data = $this->content_m->fetchCalContactUsContent();
+            }
+        } else {
+            $this->contact_us_data = $this->content_m->fetchFlContactUsContent();
+        }
     }
 
     public function index()
@@ -24,6 +36,7 @@ class FileSystem extends MY_Controller
         $data['page_title'] = "File System";
         $data['folders_data'] = $folders_data;
         $data['recent_files_data'] = $recent_files_data;
+        $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -121,6 +134,7 @@ class FileSystem extends MY_Controller
         $data['view_to_load'] = "user/pages/files_system";
         $data['page_title'] = "File System";
         $data['folders_data'] = $folders_data;
+        $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -134,6 +148,7 @@ class FileSystem extends MY_Controller
         $data['view_to_load'] = "user/pages/files_system";
         $data['page_title'] = "File System";
         $data['folders_data'] = $folders_data;
+        $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -148,6 +163,7 @@ class FileSystem extends MY_Controller
         $data['files_data'] = $files_data;
         $data['folder_id'] = $id;
         $data['folder_name'] = $folder_name->folder_name;
+        $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -247,6 +263,7 @@ class FileSystem extends MY_Controller
         $data['files_data'] = $files_data;
         $data['folder_id'] = $folder_id;
         $data['folder_name'] = $folder_name->folder_name;
+        $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -264,6 +281,7 @@ class FileSystem extends MY_Controller
         $data['files_data'] = $files_data;
         $data['folder_id'] = $folder_id;
         $data['folder_name'] = $folder_name->folder_name;
+        $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 

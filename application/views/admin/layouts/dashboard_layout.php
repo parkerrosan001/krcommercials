@@ -189,7 +189,7 @@
                             </ul>
                         </li>
 
-                        <!-- <li class="nav-item has-treeview">
+                        <li class="nav-item has-treeview">
                             <a href="#" class="nav-link <?php if ($_SESSION['current_page'] == 'Manage Content') {
                                                             echo 'active';
                                                         } ?>">
@@ -203,23 +203,23 @@
                                 <li class="nav-item">
                                     <a href="<?php echo base_url() ?>admin/Content" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
+                                        <p>Slider Content</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo base_url() ?>admin/Content/homePageContent" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
                                         <p>Home Page Content</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?php echo base_url() ?>admin/system/manageContactUs" class="nav-link">
+                                    <a href="<?php echo base_url() ?>admin/Content/contactUsContent" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage Contact Us</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?php echo base_url() ?>admin/system/manageFAQs" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Manage FAQs</p>
+                                        <p>Contact Us Content</p>
                                     </a>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li>
 
                         <li class="nav-item has-treeview">
                             <a href="<?php echo base_url() ?>admin/dashboard/accountSettings" class="nav-link <?php if ($_SESSION['current_page'] == 'Account Settings') {
@@ -318,11 +318,64 @@
         });
     </script>
 
+    <script>
+        $(function() {
+            $("#datatable1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+
     <script type='text/javascript'>
         function preview_image(event) {
             var reader = new FileReader();
             reader.onload = function() {
                 var output = document.getElementById('output_image');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+    <script type='text/javascript'>
+        function preview_slider_image(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('output_slider_image');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+    <script type='text/javascript'>
+        function preview_slider_image1(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('output_slider_image1');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+<script type='text/javascript'>
+        function preview_special_image(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('output_special_image');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+    <script type='text/javascript'>
+        function preview_special_image1(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('output_special_image1');
                 output.src = reader.result;
             }
             reader.readAsDataURL(event.target.files[0]);

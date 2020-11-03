@@ -64,9 +64,9 @@
             </div>
             <div class="col-lg-4 col-md-12 col-12">
                 <div class="contact-wrap">
-                    <p class="mb-2"><span class="fw-600"><i class="fa fa-phone"></i> Phone number : </span> <span> (714) 516 2100</span></p>
-                    <p class="mb-2"><span class="fw-600"><i class="fa fa-envelope"></i> Email :</span> <span>scot@kr-commercial.com</span></p>
-                    <p class="mb-2"><span class="fw-600"><i class="fa fa-location-arrow"></i> Location: </span><span>1011 East Lacy Avenue Anaheim, CA 92805, USA</span></p>
+                    <p class="mb-2"><span class="fw-600"><i class="fa fa-phone"></i> Phone number : </span> <span> <?php echo $contact_us_data->phone ?></span></p>
+                    <p class="mb-2"><span class="fw-600"><i class="fa fa-envelope"></i> Email :</span> <span> <?php echo $contact_us_data->email ?></span></p>
+                    <p class="mb-2"><span class="fw-600"><i class="fa fa-location-arrow"></i> Location: </span><span> <?php echo $contact_us_data->address ?></span></p>
                 </div>
                 <h4 class="mt-2">Location</h4>
                 <div id="googleMap"></div>

@@ -1,57 +1,43 @@
 <!-- slider-area start -->
 <div class="slider-area">
     <div class="slider-active next-prev-style">
-        <div class="slider-items">
-            <img src="<?php echo base_url() ?>assets/images/banner-1.jpg" alt="" class="slider">
-            <div class="slider-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-text">
+        <?php
+        if (!empty($slider_data) && sizeof($slider_data) > 0) {
+            $no = 0;
+            foreach ($slider_data as $slider) {
+                $no++;
+        ?>
+                <div class="slider-items">
+                    <img src="<?php echo base_url() . 'uploads/' . $slider->slider_image; ?>" alt="" class="slider">
+                    <div class="slider-content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="slider-text">
 
-                                <h2><span class="d-block">Discover</span>Your Dream <span class="color">Hotel</span> </h2>
-                                <p>Why Over <span>50,0000+ </span> Customers Have Choosen <span>Architecture & Interior</span> Design. </p>
-                                <a href="projects-ca.html" class="banner-btn">See Projects <i class="fa fa-long-arrow-right"></i></a>
+                                        <h2><?php echo $slider->slider_heading; ?></h2>
+                                        <p><?php echo $slider->slider_sub_text; ?></p>
+                                        <?php
+                                        if ($no % 2 == 0) {
+                                        ?>
+                                            <a href="<?php echo base_url() ?>projects" class="banner-btn">See Projects <i class="fa fa-long-arrow-right"></i></a>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <a href="<?php echo base_url() ?>services" class="banner-btn">See Services <i class="fa fa-long-arrow-right"></i></a>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="slider-items">
-            <img src="<?php echo base_url() ?>assets/images/banner-2.jpg" alt="" class="slider">
-            <div class="slider-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-text">
-
-                                <h2><span class="color">KR</span> Commercial Interior Inc.</h2>
-                                <p>Why Over <span>50,0000+ </span> Customers Have Choosen <span>Architecture & Interior</span> Design. </p>
-                                <a href="contact-ca.html" class="banner-btn">Contact Us <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider-items">
-            <img src="<?php echo base_url() ?>assets/images/banner-3.jpg" alt="" class="slider">
-            <div class="slider-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-text">
-
-                                <h2><span class="d-block">Discover</span>Your Dream <span class="color">Hotel</span> </h2>
-                                <p>Why Over <span>50,0000+ </span> Customers Have Choosen <span>Architecture & Interior</span> Design. </p>
-                                <a href="services-ca.html" class="banner-btn">See Services <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php
+            }
+        }
+        ?>
     </div>
 </div>
 <!-- slider-area end -->
@@ -62,17 +48,15 @@
         <div class="row">
             <div class="col-lg-6 col-12">
                 <div class="about-wrap">
-                    <h2>WELCOME TO </h2>
-                    <h3>KR Commercial Interiors Inc.</h3>
-                    <p>KR Commercial Interiors Inc. offers a wide variety of service to the Hotel Owner. From budget development to project
-                        close out, every detail is important. We can tailor-fit a service to match your needs. Whether it is a pre-purchase
-                        property survey to a design/ build ground up project, we are here with our experienced and professional staff.</p>
+                    <h2><?php echo $welcome_section_data->heading; ?></h2>
+                    <br>
+                    <p><?php echo $welcome_section_data->description; ?></p>
 
                 </div>
             </div>
             <div class="col-md-6 d-none d-lg-block">
                 <div class="about-img">
-                    <img src="<?php echo base_url() ?>assets/images/about/1.jpg" alt="">
+                    <img src="<?php echo base_url() . 'uploads/' . $welcome_section_data->image; ?>" alt="">
                 </div>
             </div>
         </div>
@@ -86,15 +70,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title text-center">
-                    <h2>OUR SPECIALIZATION</h2>
-                    <h3>A wall for our project glory and a place to find more</h3>
+                    <h2><?php echo $special_section_data->heading ?></h2>
+                    <h3><?php echo $special_section_data->description ?></h3>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 d-lg-block d-none ">
                 <div class="spacial-img">
-                    <img src="<?php echo base_url() ?>assets/images/spacial/1.jpg" alt="">
+                    <img src="<?php echo base_url().'uploads/'.$special_section_data->image; ?>" alt="">
                 </div>
             </div>
             <div class="col-lg-6 col-12">
@@ -167,9 +151,9 @@
             ?>
                         <div class="col-lg-4 col-sm-6 col-12 project cat3 cat4">
                             <div class="project-wrap">
-                                <img src="<?php echo base_url().'uploads/'.$project->project_image; ?>" alt="">
+                                <img src="<?php echo base_url() . 'uploads/' . $project->project_image; ?>" alt="">
                                 <div class="project-content">
-                                    <a href="<?php echo base_url().'uploads/'.$project->project_image; ?>" class="popup"><i class="fa fa-search"></i></a>
+                                    <a href="<?php echo base_url() . 'uploads/' . $project->project_image; ?>" class="popup"><i class="fa fa-search"></i></a>
                                     <h3><?php echo $project->project_title; ?></h3>
                                 </div>
                             </div>

@@ -3,12 +3,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Account extends MY_Controller
 {
+    public $contact_us_data;
 
     public function __construct()
     {
         parent::__construct();
+        
         $this->load->model("user/AccountModel", "acc_m");
         $this->session->set_userdata('current_page', 'Account');
+        $this->load->model('admin/ContentModel', 'content_m');
+
+        if (isset($_SESSION['selected_branch'])) {
+            if ($_SESSION['selected_branch'] == 'FL') {
+                $this->contact_us_data = $this->content_m->fetchFlContactUsContent();
+            } else {
+                $this->contact_us_data = $this->content_m->fetchCalContactUsContent();
+            }
+        } else {
+            $this->contact_us_data = $this->content_m->fetchFlContactUsContent();
+        }
     }
 
     public function index()
@@ -20,6 +33,7 @@ class Account extends MY_Controller
 
             $data['view_to_load'] = "user/pages/signin";
             $data['page_title'] = "Sign-In";
+            $data['contact_us_data'] = $this->contact_us_data;
             $this->load->view('user/layouts/main_layout', $data);
         } else {
 
@@ -91,6 +105,7 @@ class Account extends MY_Controller
 
             $data['view_to_load'] = "user/pages/signup";
             $data['page_title'] = "Sign-Up";
+            $data['contact_us_data'] = $this->contact_us_data;
             $this->load->view('user/layouts/main_layout', $data);
         } else {
 
@@ -165,6 +180,7 @@ class Account extends MY_Controller
 
         $data['view_to_load'] = "user/pages/forgot_password";
         $data['page_title'] = "Forgot Password";
+        $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -239,6 +255,7 @@ class Account extends MY_Controller
 
         $data['view_to_load'] = "user/pages/reset_password";
         $data['page_title'] = "Reset Password";
+        $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }
 
@@ -295,6 +312,7 @@ class Account extends MY_Controller
             $data['view_to_load'] = "user/pages/my_profile";
             $data['page_title'] = "My Account";
             $data['user_data'] = $user_data;
+            $data['contact_us_data'] = $this->contact_us_data;
             $this->load->view('user/layouts/main_layout', $data);
         } else {
 

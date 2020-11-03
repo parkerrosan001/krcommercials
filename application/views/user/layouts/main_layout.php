@@ -110,8 +110,7 @@
           <div class="col-lg-4 col-sm-6 col-12">
             <div class="footer-widget footer-logo">
               <img src="<?php echo base_url() ?>assets/images/logo-black.png" alt="">
-              <p>KR Commercial Interiors Inc. offers a wide variety of service to the Hotel Owner. From budget development to project
-                close out, every detail is important</p>
+              <p><?php echo $contact_us_data->short_description; ?></p>
             </div>
           </div>
 
@@ -131,10 +130,10 @@
             <div class="footer-widget footer-contact">
               <h4 class="widget-title">GET IN TOUCH</h4>
               <ul>
-                <li><i class="fa fa-home"></i> 1011 East Lacy Avenue Anaheim, CA 92805, USA</li>
-                <li><i class="fa fa-phone"></i> (714) 516 2100</li>
-                <li><i class="fa fa-fax"></i> (714) 516 2110</li>
-                <li><i class="fa fa-envelope"></i> scot@kr-commercial.com</li>
+                <li><i class="fa fa-home"></i> <?php echo $contact_us_data->address; ?></li>
+                <li><i class="fa fa-phone"></i> <?php echo $contact_us_data->phone; ?></li>
+                <li><i class="fa fa-fax"></i> <?php echo $contact_us_data->fax; ?></li>
+                <li><i class="fa fa-envelope"></i> <?php echo $contact_us_data->email; ?></li>
               </ul>
             </div>
           </div>
@@ -142,9 +141,9 @@
             <div class="footer-widget social-media">
               <h4 class="widget-title">Social Media</h4>
               <ul>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li><br>
+                <li><a href=" <?php echo $contact_us_data->facebook_url; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li><a href=" <?php echo $contact_us_data->twitter_url; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <li><a href=" <?php echo $contact_us_data->linkedin_url; ?>" target="_blank"><i class="fa fa-linkedin"></i></a></li><br>
                 <?php
                 if (!isset($_SESSION['logged_in_id'])) {
                 ?>
@@ -195,7 +194,7 @@
       var mapOptions = {
         zoom: 15,
         scrollwheel: false,
-        center: new google.maps.LatLng(40.712764, -74.005667),
+        center: new google.maps.LatLng(<?php echo $contact_us_data->latitude; ?>, <?php echo $contact_us_data->longitude; ?>),
         styles: [{
             "elementType": "geometry",
             "stylers": [{
