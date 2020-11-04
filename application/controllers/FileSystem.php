@@ -109,6 +109,28 @@ class FileSystem extends MY_Controller
         }
     }
 
+    public function deleteSubFolder($id, $parrent_id, $directory)
+    {
+
+        $value = $this->file_m->deleteSubFolder($id);
+
+        if ($value == true) {
+            $this->session->set_flashdata('folder_delete_succ', '<b>Heads up!</b> Folder deleted successfully.');
+            if ($directory == 'viewFolder') {
+                redirect('FileSystem/viewFolder/' . $parrent_id, 'refresh');
+            } else {
+                redirect('FileSystem/viewSubFolder/' . $parrent_id, 'refresh');
+            }
+        } else {
+            $this->session->set_flashdata('folder_delete_err', '<b>Oh Snap!</b> Folder not is deleted. Please try again!');
+            if ($directory == 'viewFolder') {
+                redirect('FileSystem/viewFolder/' . $parrent_id, 'refresh');
+            } else {
+                redirect('FileSystem/viewSubFolder/' . $parrent_id, 'refresh');
+            }
+        }
+    }
+
     public function filterFolders()
     {
 
@@ -174,18 +196,31 @@ class FileSystem extends MY_Controller
         if (isset($_POST['files_upload_btn'])) {
 
             $folder_id = $this->input->post('folder_id_field');
+            $controller = $this->input->post('controller_field');
 
             if (!empty($_FILES['images']['name'][0])) {
                 if ($this->upload_files($folder_id, $_FILES['images']) === FALSE) {
                     $this->session->set_flashdata('file_upload_err', '<b>Heads up!</b> Files are not uploaded to folder. Please try again!');
-                    redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                    if ($controller == 'viewFolder') {
+                        redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                    } else {
+                        redirect('FileSystem/viewSubFolder/' . $folder_id, 'refresh');
+                    }
                 } else {
                     $this->session->set_flashdata('file_upload_succ', '<b>Heads up!</b> Files uploaded to folder successfully.');
-                    redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                    if ($controller == 'viewFolder') {
+                        redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                    } else {
+                        redirect('FileSystem/viewSubFolder/' . $folder_id, 'refresh');
+                    }
                 }
             } else {
                 $this->session->set_flashdata('file_upload_err', '<b>Heads up!</b> Files are not uploaded to folder. Please try again!');
-                redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                if ($controller == 'viewFolder') {
+                    redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                } else {
+                    redirect('FileSystem/viewSubFolder/' . $folder_id, 'refresh');
+                }
             }
         } else {
             $this->index();
@@ -285,17 +320,25 @@ class FileSystem extends MY_Controller
         $this->load->view('user/layouts/main_layout', $data);
     }
 
-    public function deleteFile($id, $folder_id)
+    public function deleteFile($id, $folder_id, $directory)
     {
 
         $value = $this->file_m->deleteFile($id);
 
         if ($value == true) {
             $this->session->set_flashdata('file_delete_succ', '<b>Heads up!</b> File deleted successfully.');
-            redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+            if ($directory == 'viewFolder') {
+                redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+            } else {
+                redirect('FileSystem/viewSubFolder/' . $folder_id, 'refresh');
+            }
         } else {
             $this->session->set_flashdata('file_delete_err', '<b>Oh Snap!</b> File not is deleted. Please try again!');
-            redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+            if ($directory == 'viewFolder') {
+                redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+            } else {
+                redirect('FileSystem/viewSubFolder/' . $folder_id, 'refresh');
+            }
         }
     }
 
@@ -306,6 +349,7 @@ class FileSystem extends MY_Controller
             $file_name = $this->input->post('rename_file_name_field');
             $id = $this->input->post('f_id_field');
             $folder_id = $this->input->post('fol_id_field');
+            $controller = $this->input->post('controller_field');
 
             $data = array(
                 'display_name' => $file_name
@@ -316,11 +360,19 @@ class FileSystem extends MY_Controller
             if ($result == false) {
 
                 $this->session->set_flashdata("file_rename_err", "Oh Snap! File rename failed. Please try again!");
-                redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                if ($controller == 'viewFolder') {
+                    redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                } else {
+                    redirect('FileSystem/viewSubFolder/' . $folder_id, 'refresh');
+                }
             } else {
 
                 $this->session->set_flashdata("file_rename_succ", "Heads Up! File renamed successfully.");
-                redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                if ($controller == 'viewFolder') {
+                    redirect('FileSystem/viewFolder/' . $folder_id, 'refresh');
+                } else {
+                    redirect('FileSystem/viewSubFolder/' . $folder_id, 'refresh');
+                }
             }
         } else {
             $this->index();
@@ -334,6 +386,7 @@ class FileSystem extends MY_Controller
 
             $parrent_folder = $this->input->post('parrent_folder_field');
             $folder_name = $this->input->post('folder_name_field');
+            $controller = $this->input->post('controller_field');
 
             $data = array(
                 'acc_id' => $_SESSION['logged_in_id'],
@@ -348,14 +401,37 @@ class FileSystem extends MY_Controller
             if ($result == false) {
 
                 $this->session->set_flashdata("sub_folder_err", "Oh Snap! Sub-Folder creation failed. Please try again!");
-                redirect('FileSystem/viewFolder/' . $parrent_folder, 'refresh');
+                if ($controller == 'viewFolder') {
+                    redirect('FileSystem/viewFolder/' . $parrent_folder, 'refresh');
+                } else {
+                    redirect('FileSystem/viewSubFolder/' . $parrent_folder, 'refresh');
+                }
             } else {
 
                 $this->session->set_flashdata("sub_folder_succ", "Heads Up! Sub-Folder created successfully.");
-                redirect('FileSystem/viewFolder/' . $parrent_folder, 'refresh');
+                if ($controller == 'viewFolder') {
+                    redirect('FileSystem/viewFolder/' . $parrent_folder, 'refresh');
+                } else {
+                    redirect('FileSystem/viewSubFolder/' . $parrent_folder, 'refresh');
+                }
             }
         } else {
             $this->index();
         }
+    }
+
+    public function viewSubFolder($id)
+    {
+
+        $files_data = $this->file_m->fetchSubFolderFiles($id);
+        $sub_folder_name = $this->file_m->fetchSubFolderName($id);
+
+        $data['view_to_load'] = "user/pages/view_sub_folder";
+        $data['page_title'] = "File System";
+        $data['files_data'] = $files_data;
+        $data['folder_id'] = $id;
+        $data['sub_folder_name'] = $sub_folder_name->display_name;
+        $data['contact_us_data'] = $this->contact_us_data;
+        $this->load->view('user/layouts/main_layout', $data);
     }
 }

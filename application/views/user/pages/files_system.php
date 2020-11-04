@@ -278,7 +278,7 @@
                 </div>
                 <div class="modal-body">
                     <label>Folder Name</label>
-                    <input type="hidden" name="id_field" id="id_field">
+                    <input type="text" name="id_field" id="id_field">
                     <input class="form-control" type="text" name="rename_folder_name_field" id="rename_folder_name_field" placeholder="enter folder name" required>
                 </div>
                 <div class="modal-footer">

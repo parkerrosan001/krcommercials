@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <div class="breadcumb-wrap">
-                    <h2 class="white"><?php echo $folder_name; ?></h2>
+                    <h2 class="white"><?php echo $sub_folder_name; ?></h2>
                 </div>
             </div>
         </div>
@@ -235,12 +235,11 @@
                                                         <i class="fa fa-pencil" aria-hidden="true"></i> <span>Rename</span>
                                                     </a>
                                                 </li>
-
                                                 <?php
                                                 if ($file->type === 'Folder') {
                                                 ?>
                                                     <li>
-                                                        <a href="<?php echo base_url() . 'FileSystem/deleteSubFolder/' . $file->id . '/' . $file->folder_id . '/viewFolder'; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
+                                                        <a href="<?php echo base_url() . 'FileSystem/deleteSubFolder/' . $file->id . '/' . $file->folder_id . '/viewSubFolder'; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             <span>Delete</span>
                                                         </a>
@@ -249,7 +248,7 @@
                                                 } else {
                                                 ?>
                                                     <li>
-                                                        <a href="<?php echo base_url() . 'FileSystem/deleteFile/' . $file->id . '/' . $file->folder_id . '/viewFolder'; ?>" onclick="return confirm('Are you sure to delete this file?')">
+                                                        <a href="<?php echo base_url() . 'FileSystem/deleteFile/' . $file->id . '/' . $file->folder_id . '/viewSubFolder'; ?>" onclick="return confirm('Are you sure to delete this file?')">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             <span>Delete</span>
                                                         </a>
@@ -289,7 +288,7 @@
             </div>
             <form action="<?php echo base_url() ?>FileSystem/uploadFiles" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <input type="text" name="controller_field" id="controller_field" value="viewFolder">
+                    <input type="text" name="controller_field" id="controller_field" value="viewSubFolder">
                     <input type="text" value="<?php echo $folder_id; ?>" name="folder_id_field" id="folder_id_field" />
                     <input type="file" class="form-control" name="images[]" id="files_field" multiple required />
                 </div>
@@ -314,7 +313,7 @@
                 </div>
                 <div class="modal-body">
                     <label>File Name</label>
-                    <input type="text" name="controller_field" id="controller_field" value="viewFolder">
+                    <input type="text" name="controller_field" id="controller_field" value="viewSubFolder">
                     <input type="text" name="f_id_field" id="id_field">
                     <input type="text" name="fol_id_field" id="fol_id_field">
                     <input class="form-control" type="text" name="rename_file_name_field" id="rename_file_name_field" placeholder="enter file name" required>
@@ -340,7 +339,7 @@
                 </div>
                 <div class="modal-body">
                     <label>Sub-Folder Name</label>
-                    <input type="text" name="controller_field" id="controller_field" value="viewFolder">
+                    <input type="text" name="controller_field" id="controller_field" value="viewSubFolder">
                     <input type="text" name="parrent_folder_field" id="parrent_folder_field">
                     <input class="form-control" type="text" name="folder_name_field" id="folder_name_field" placeholder="enter folder name" required>
                 </div>
