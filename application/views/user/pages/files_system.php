@@ -64,13 +64,13 @@
             </div>
             <div class="col-md-12 row m-0 mb-3 p-0">
                 <div class="col-md-6">
-                    <form action="<?php echo base_url() ?>FileSystem/searchFolders" method="POST">
+                    <form action="<?php echo base_url() ?>FileSystem/searchRootFolders" method="POST">
                         <i class="fa fa-search search-folder-icon" aria-hidden="true"></i>
                         <input type="text" name="search_field" id="search_field" class="form-control border-transparent form-focus-none" placeholder="type keywords and press enter to search for folders" onchange="this.form.submit();">
                     </form>
                 </div>
                 <div class="col-md-2 col-6 text-right  mt-4 mt-md-0">
-                    <form action="<?php echo base_url() ?>FileSystem/filterFolders" method="POST">
+                    <form action="<?php echo base_url() ?>FileSystem/filterRootFolders" method="POST">
                         <select class="form-control sort-by" onchange="this.form.submit();" name="sort_field" id="sort_field">
                             <option value="ASC_NAME">Sort By</option>
                             <option value="ASC_NAME">A-Z</option>
@@ -278,7 +278,7 @@
                 </div>
                 <div class="modal-body">
                     <label>Folder Name</label>
-                    <input type="text" name="id_field" id="id_field">
+                    <input type="hidden" name="id_field" id="id_field">
                     <input class="form-control" type="text" name="rename_folder_name_field" id="rename_folder_name_field" placeholder="enter folder name" required>
                 </div>
                 <div class="modal-footer">

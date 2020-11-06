@@ -56,8 +56,8 @@
                         <form enctype="multipart/form-data" action="<?php echo base_url() ?>admin/content/addFlSlider" method="POST">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Slider Heading</label>
-                                    <input type="text" name="heading_fl_field" id="heading_fl_field" class="form-control" placeholder="enter slider heading" required>
+                                    <label>Slider Heading <span class="text-danger"> ( Max. 35 Characters )</span></label>
+                                    <input type="text" name="heading_fl_field" id="heading_fl_field" class="form-control" placeholder="enter slider heading" required maxlength="35">
                                 </div>
                                 <div class="form-group">
                                     <label>Slider Sub-title Text <span class="text-danger"> ( Max. 200 Characters )</span></label>
@@ -149,8 +149,8 @@
                         <form enctype="multipart/form-data" action="<?php echo base_url() ?>admin/content/addCalSlider" method="POST">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Slider Heading</label>
-                                    <input type="text" name="heading_cal_field" id="heading_cal_field" class="form-control" placeholder="enter slider heading" required>
+                                    <label>Slider Heading <span class="text-danger"> ( Max. 35 Characters )</span></label>
+                                    <input type="text" name="heading_cal_field" id="heading_cal_field" class="form-control" placeholder="enter slider heading" required maxlength="35">
                                 </div>
                                 <div class="form-group">
                                     <label>Slider Sub-title Text <span class="text-danger"> ( Max. 200 Characters )</span></label>

@@ -79,14 +79,14 @@
             ?>
             <div class="col-md-12 row m-0 mb-3 p-0">
                 <div class="col-md-6">
-                    <form action="<?php echo base_url() ?>FileSystem/searchFiles" method="POST">
+                    <form action="<?php echo base_url() ?>FileSystem/searchSubFolderFiles" method="POST">
                         <i class="fa fa-search search-folder-icon" aria-hidden="true"></i>
                         <input type="hidden" value="<?php echo $folder_id; ?>" name="folder_id_field" id="folder_id_field" />
                         <input type="text" name="search_field" id="search_field" class="form-control border-transparent form-focus-none" placeholder="type keywords and press enter to search for files" onchange="this.form.submit();">
                     </form>
                 </div>
                 <div class="col-md-2 col-6 text-right  mt-4 mt-md-0">
-                    <form action="<?php echo base_url() ?>FileSystem/filterFiles" method="POST">
+                    <form action="<?php echo base_url() ?>FileSystem/filterSubFolderFiles" method="POST">
                         <input type="hidden" value="<?php echo $folder_id; ?>" name="folder_id_field" id="folder_id_field" />
                         <select class="form-control sort-by" onchange="this.form.submit();" name="sort_field" id="sort_field">
                             <option value="ASC_NAME">Sort By</option>
@@ -98,7 +98,7 @@
                     </form>
                 </div>
                 <div class="col-md-2 col-6 text-right  mt-4 mt-md-0">
-                    <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder_id ?>" class="view-btn cursor"> Reset Filters </a>
+                    <a href="<?php echo base_url() . 'FileSystem/viewSubFolder/' . $folder_id ?>" class="view-btn cursor"> Reset Filters </a>
                 </div>
                 <div class="col-md-2 col-6  text-right  mt-4 mt-md-0">
                     <div class="row">
@@ -288,8 +288,8 @@
             </div>
             <form action="<?php echo base_url() ?>FileSystem/uploadFiles" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <input type="text" name="controller_field" id="controller_field" value="viewSubFolder">
-                    <input type="text" value="<?php echo $folder_id; ?>" name="folder_id_field" id="folder_id_field" />
+                    <input type="hidden" name="controller_field" id="controller_field" value="viewSubFolder">
+                    <input type="hidden" value="<?php echo $folder_id; ?>" name="folder_id_field" id="folder_id_field" />
                     <input type="file" class="form-control" name="images[]" id="files_field" multiple required />
                 </div>
                 <div class="modal-footer">
@@ -313,9 +313,9 @@
                 </div>
                 <div class="modal-body">
                     <label>File Name</label>
-                    <input type="text" name="controller_field" id="controller_field" value="viewSubFolder">
-                    <input type="text" name="f_id_field" id="id_field">
-                    <input type="text" name="fol_id_field" id="fol_id_field">
+                    <input type="hidden" name="controller_field" id="controller_field" value="viewSubFolder">
+                    <input type="hidden" name="f_id_field" id="id_field">
+                    <input type="hidden" name="fol_id_field" id="fol_id_field">
                     <input class="form-control" type="text" name="rename_file_name_field" id="rename_file_name_field" placeholder="enter file name" required>
                 </div>
                 <div class="modal-footer">
@@ -339,8 +339,8 @@
                 </div>
                 <div class="modal-body">
                     <label>Sub-Folder Name</label>
-                    <input type="text" name="controller_field" id="controller_field" value="viewSubFolder">
-                    <input type="text" name="parrent_folder_field" id="parrent_folder_field">
+                    <input type="hidden" name="controller_field" id="controller_field" value="viewSubFolder">
+                    <input type="hidden" name="parrent_folder_field" id="parrent_folder_field">
                     <input class="form-control" type="text" name="folder_name_field" id="folder_name_field" placeholder="enter folder name" required>
                 </div>
                 <div class="modal-footer">

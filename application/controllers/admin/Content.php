@@ -171,6 +171,16 @@ class Content extends MY_Controller
             $_FILES['file']['error']      = $_FILES['fl_banner_pic_field']['error'];
             $_FILES['file']['size']       = $_FILES['fl_banner_pic_field']['size'];
 
+            $file = $_FILES["file"]['tmp_name'];
+            list($width, $height) = getimagesize($file);
+
+            if ($width != "559" && $height != "427") {
+
+                $this->session->set_flashdata('fl_welcome_section_content_err', 'Oh Snap! Image size must be 559 x 427 pixels.');
+                redirect('admin/content/homePageContent', 'refresh');
+                exit;
+            }
+
             $uploadPath = './uploads/';
             $config['upload_path'] = $uploadPath;
             $config['allowed_types'] = '*';
@@ -217,6 +227,16 @@ class Content extends MY_Controller
             $_FILES['file']['tmp_name']   = $_FILES['cal_banner_pic_field']['tmp_name'];
             $_FILES['file']['error']      = $_FILES['cal_banner_pic_field']['error'];
             $_FILES['file']['size']       = $_FILES['cal_banner_pic_field']['size'];
+
+            $file = $_FILES["file"]['tmp_name'];
+            list($width, $height) = getimagesize($file);
+
+            if ($width != "559" && $height != "427") {
+
+                $this->session->set_flashdata('fl_welcome_section_content_err', 'Oh Snap! Image size must be 559 x 427 pixels.');
+                redirect('admin/content/homePageContent', 'refresh');
+                exit;
+            }
 
             $uploadPath = './uploads/';
             $config['upload_path'] = $uploadPath;
@@ -265,6 +285,16 @@ class Content extends MY_Controller
             $_FILES['file']['error']      = $_FILES['fl_banner_pic_field']['error'];
             $_FILES['file']['size']       = $_FILES['fl_banner_pic_field']['size'];
 
+            $file = $_FILES["file"]['tmp_name'];
+            list($width, $height) = getimagesize($file);
+
+            if ($width != "555" && $height != "486") {
+
+                $this->session->set_flashdata('fl_special_section_content_err', 'Oh Snap! Image size must be 555 x 486 pixels.');
+                redirect('admin/content/homePageContent', 'refresh');
+                exit;
+            }
+
             $uploadPath = './uploads/';
             $config['upload_path'] = $uploadPath;
             $config['allowed_types'] = '*';
@@ -311,6 +341,16 @@ class Content extends MY_Controller
             $_FILES['file']['tmp_name']   = $_FILES['cal_banner_pic_field']['tmp_name'];
             $_FILES['file']['error']      = $_FILES['cal_banner_pic_field']['error'];
             $_FILES['file']['size']       = $_FILES['cal_banner_pic_field']['size'];
+
+            $file = $_FILES["file"]['tmp_name'];
+            list($width, $height) = getimagesize($file);
+
+            if ($width != "555" && $height != "486") {
+
+                $this->session->set_flashdata('fl_special_section_content_err', 'Oh Snap! Image size must be 555 x 486 pixels.');
+                redirect('admin/content/homePageContent', 'refresh');
+                exit;
+            }
 
             $uploadPath = './uploads/';
             $config['upload_path'] = $uploadPath;

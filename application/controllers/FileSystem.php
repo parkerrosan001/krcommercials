@@ -131,7 +131,7 @@ class FileSystem extends MY_Controller
         }
     }
 
-    public function filterFolders()
+    public function filterRootFolders()
     {
 
         $filter = $this->input->post('sort_field');
@@ -151,7 +151,7 @@ class FileSystem extends MY_Controller
             $order_by = 'DESC';
         }
 
-        $folders_data = $this->file_m->sortFolders($column, $order_by);
+        $folders_data = $this->file_m->sortRootFolders($column, $order_by);
 
         $data['view_to_load'] = "user/pages/files_system";
         $data['page_title'] = "File System";
@@ -160,12 +160,12 @@ class FileSystem extends MY_Controller
         $this->load->view('user/layouts/main_layout', $data);
     }
 
-    public function searchFolders()
+    public function searchRootFolders()
     {
 
         $search = $this->input->post('search_field');
 
-        $folders_data = $this->file_m->searchFolders($search);
+        $folders_data = $this->file_m->searchRootFolders($search);
 
         $data['view_to_load'] = "user/pages/files_system";
         $data['page_title'] = "File System";
@@ -269,7 +269,7 @@ class FileSystem extends MY_Controller
         return true;
     }
 
-    public function filterFiles()
+    public function filterFolderFiles()
     {
 
         $filter = $this->input->post('sort_field');
@@ -283,14 +283,14 @@ class FileSystem extends MY_Controller
             $column = 'created_at';
             $order_by = 'DESC';
         } elseif ($filter == 'ASC_NAME') {
-            $column = 'file_name';
+            $column = 'display_name';
             $order_by = 'ASC';
         } else {
             $column = 'file_name';
             $order_by = 'DESC';
         }
 
-        $files_data = $this->file_m->sortFiles($column, $order_by, $folder_id);
+        $files_data = $this->file_m->sortFolderFiles($column, $order_by, $folder_id);
         $folder_name = $this->file_m->fetchFolderName($folder_id);
 
         $data['view_to_load'] = "user/pages/folder_files";
@@ -302,13 +302,46 @@ class FileSystem extends MY_Controller
         $this->load->view('user/layouts/main_layout', $data);
     }
 
-    public function searchFiles()
+    public function filterSubFolderFiles()
+    {
+
+        $filter = $this->input->post('sort_field');
+        $folder_id = $this->input->post('folder_id_field');
+
+        if ($filter == 'ASC_DATE') {
+
+            $column = 'created_at';
+            $order_by = 'ASC';
+        } elseif ($filter == 'DESC_DATE') {
+            $column = 'created_at';
+            $order_by = 'DESC';
+        } elseif ($filter == 'ASC_NAME') {
+            $column = 'display_name';
+            $order_by = 'ASC';
+        } else {
+            $column = 'file_name';
+            $order_by = 'DESC';
+        }
+
+        $files_data = $this->file_m->sortFolderFiles($column, $order_by, $folder_id);
+        $sub_folder_name = $this->file_m->fetchSubFolderName($folder_id);
+
+        $data['view_to_load'] = "user/pages/view_sub_folder";
+        $data['page_title'] = "File System";
+        $data['files_data'] = $files_data;
+        $data['folder_id'] = $folder_id;
+        $data['sub_folder_name'] = $sub_folder_name->display_name;
+        $data['contact_us_data'] = $this->contact_us_data;
+        $this->load->view('user/layouts/main_layout', $data);
+    }
+
+    public function searchFolderFiles()
     {
 
         $search = $this->input->post('search_field');
         $folder_id = $this->input->post('folder_id_field');
 
-        $files_data = $this->file_m->searchFiles($search, $folder_id);
+        $files_data = $this->file_m->searchFolderFiles($search, $folder_id);
         $folder_name = $this->file_m->fetchFolderName($folder_id);
 
         $data['view_to_load'] = "user/pages/folder_files";
@@ -316,6 +349,24 @@ class FileSystem extends MY_Controller
         $data['files_data'] = $files_data;
         $data['folder_id'] = $folder_id;
         $data['folder_name'] = $folder_name->folder_name;
+        $data['contact_us_data'] = $this->contact_us_data;
+        $this->load->view('user/layouts/main_layout', $data);
+    }
+
+    public function searchSubFolderFiles()
+    {
+
+        $search = $this->input->post('search_field');
+        $folder_id = $this->input->post('folder_id_field');
+
+        $files_data = $this->file_m->searchFolderFiles($search, $folder_id);
+        $sub_folder_name = $this->file_m->fetchSubFolderName($folder_id);
+
+        $data['view_to_load'] = "user/pages/view_sub_folder";
+        $data['page_title'] = "File System";
+        $data['files_data'] = $files_data;
+        $data['folder_id'] = $folder_id;
+        $data['sub_folder_name'] = $sub_folder_name->display_name;
         $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }

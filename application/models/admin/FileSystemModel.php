@@ -90,7 +90,7 @@ class FileSystemModel extends CI_Model
         }
     }
 
-    public function sortFolders($column, $order_by)
+    public function sortRootFolders($column, $order_by)
     {
         $this->db->select("*");
         $this->db->from('folders_tbl');
@@ -107,7 +107,7 @@ class FileSystemModel extends CI_Model
         }
     }
 
-    public function searchFolders($search)
+    public function searchRootFolders($search)
     {
         $this->db->select("*");
         $this->db->from('folders_tbl');
@@ -216,7 +216,7 @@ class FileSystemModel extends CI_Model
         }
     }
 
-    public function sortFiles($column, $order_by, $folder_id)
+    public function sortFolderFiles($column, $order_by, $folder_id)
     {
         $this->db->select("*");
         $this->db->from('files_tbl');
@@ -234,12 +234,12 @@ class FileSystemModel extends CI_Model
         }
     }
 
-    public function searchFiles($search, $folder_id)
+    public function searchFolderFiles($search, $folder_id)
     {
         $this->db->select("*");
         $this->db->from('files_tbl');
         $this->db->where('folder_id', $folder_id);
-        $this->db->like('file_name', $search);
+        $this->db->like('display_name', $search);
         $result = $this->db->get();
         $files_data =  $result->result();
 
