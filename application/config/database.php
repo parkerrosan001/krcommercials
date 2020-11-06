@@ -75,9 +75,14 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'u289140853_krcommercials',
-	'password' => '3@XVj^PwTtQp',
+    'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'u289140853_krcommercials',
+    
+	//'hostname' => 'localhost',
+	//'username' => 'u289140853_krcommercials',
+	//'password' => '3@XVj^PwTtQp',
 	'database' => 'u289140853_krcommercials',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
