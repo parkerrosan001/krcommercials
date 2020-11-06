@@ -45,38 +45,104 @@
     <?php
     }
     ?>
+
+    <?php
+    if (isset($_SESSION['sub_folder_err'])) {
+    ?>
+        <div class="alert alert-danger"><?php echo $_SESSION['sub_folder_err'] ?></div>
+    <?php
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['sub_folder_succ'])) {
+    ?>
+        <div class="alert alert-success"><?php echo $_SESSION['sub_folder_succ'] ?></div>
+    <?php
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['sub_folder_delete_err'])) {
+    ?>
+        <div class="alert alert-danger"><?php echo $_SESSION['sub_folder_delete_err'] ?></div>
+    <?php
+    }
+    ?>
+
+    <?php
+    if (isset($_SESSION['sub_folder_delete_succ'])) {
+    ?>
+        <div class="alert alert-success"><?php echo $_SESSION['sub_folder_delete_succ'] ?></div>
+    <?php
+    }
+    ?>
     <div class="row">
         <div class="col-md-5">
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Upload File(s)</h3>
-                </div>
-                <form action="<?php echo base_url() ?>admin/FileSystem/uploadFiles" method="POST" enctype="multipart/form-data">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <input type="hidden" name="folder_id_field" id="folder_id_field" value="<?php echo $folder_id; ?>">
-                            <input type="file" class="form-control" name="images[]" id="files_field" multiple required />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Upload File(s)</h3>
                         </div>
-                        <div class="form-group">
-                            <label>Branch</label>
-                            <select name="branch_field" id="branch_field" class="form-control" required>
-                                <option value="">select a branch</option>
-                                <option value="FL">Florida</option>
-                                <option value="CAL">California</option>
-                            </select>
-                        </div>
-                    </div>
+                        <form action="<?php echo base_url() ?>admin/FileSystem/uploadFiles" method="POST" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="hidden" name="folder_id_field" id="folder_id_field" value="<?php echo $folder_id; ?>">
+                                    <input type="file" class="form-control" name="images[]" id="files_field" multiple required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch</label>
+                                    <select name="branch_field" id="branch_field" class="form-control" required>
+                                        <option value="">select a branch</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="CAL">California</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                    <div class="card-footer text-right">
-                        <input type="submit" value="Upload" class="btn btn-primary" name="files_upload_btn">
+                            <div class="card-footer text-right">
+                                <input type="submit" value="Upload" class="btn btn-primary" name="files_upload_btn">
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Create Sub Folder</h3>
+                        </div>
+                        <form action="<?php echo base_url() ?>admin/FileSystem/createSubFolder" method="POST" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="hidden" name="folder_id_field" id="folder_id_field" value="<?php echo $folder_id; ?>">
+                                    <label>Folder Title</label>
+                                    <input type="text" class="form-control" name="sub_folder_field" id="sub_folder_field" required placeholder="enter sub folder title" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch</label>
+                                    <select name="branch_field" id="branch_field" class="form-control" required>
+                                        <option value="">select a branch</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="CAL">California</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-right">
+                                <input type="submit" value="Upload" class="btn btn-primary" name="create_sub_folder_btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-7">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Files in Folder</h3>
+                    <h3 class="card-title">Files & Sub-Folders in Folder</h3>
                 </div>
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered table-striped">
@@ -103,12 +169,27 @@
                                                     <i class="fa fa-edit"></i>
                                                 </label>
                                             </a>
-                                            <a href="<?php echo base_url() . 'uploads/' . $files->file_name; ?>" target="_blank">
-                                                <label class="text-success">
-                                                    <i class="fas fa-download"></i>
-                                                </label>
-                                            </a>
-                                            <a href="<?php echo base_url() . 'admin/FileSystem/deleteFile/' . $files->id . '/' . $files->folder_id; ?>" onclick="return confirm('Are you sure to delete this file?')">
+                                            <?php
+                                            if ($files->type == 'Folder') {
+                                            ?>
+                                                <a href="<?php echo base_url() . 'admin/FileSystem/viewFolder/' . $files->id; ?>">
+                                                    <label class="text-success">
+                                                        <i class="fas fa-eye"></i>
+                                                    </label>
+                                                </a>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <a href="<?php echo base_url() . 'uploads/' . $files->file_name; ?>" target="_blank">
+                                                    <label class="text-success">
+                                                        <i class="fas fa-download"></i>
+                                                    </label>
+                                                </a>
+                                            <?php
+                                            }
+                                            ?>
+
+                                            <a href="<?php echo base_url() . 'admin/FileSystem/deleteSubFolder/' . $files->id . '/' . $files->folder_id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
                                                 <label class="text-danger">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </label>

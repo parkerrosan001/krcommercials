@@ -54,6 +54,39 @@ class FileSystem extends MY_Controller
         }
     }
 
+    public function createSubFolder()
+    {
+        $folder_id = $this->input->post('folder_id_field');
+        
+        if (isset($_POST['create_sub_folder_btn'])) {
+
+            $folder_name = $this->input->post('sub_folder_field');
+            $branch = $this->input->post('branch_field');
+
+            $data = array(
+                'acc_id' => $_SESSION['logged_in_admin_id'],
+                'display_name' => $folder_name,
+                'folder_id' => $folder_id,
+                'type' => 'Folder',
+                'branch' => $branch
+            );
+
+            $result = $this->file_m->createSubFolder($data);
+
+            if ($result == false) {
+
+                $this->session->set_flashdata("sub_folder_err", "Oh Snap! Sub-Folder creation failed. Please try again!");
+                redirect('admin/FileSystem/viewFolder/' . $folder_id, 'refresh');
+            } else {
+
+                $this->session->set_flashdata("sub_folder_succ", "Heads Up! Sub-Folder created successfully.");
+                redirect('admin/FileSystem/viewFolder/' . $folder_id, 'refresh');
+            }
+        } else {
+            $this->viewFolder($folder_id);
+        }
+    }
+
     public function renameFolder()
     {
 
@@ -92,7 +125,7 @@ class FileSystem extends MY_Controller
             $this->session->set_flashdata('folder_delete_succ', '<b>Heads up!</b> Folder deleted successfully.');
             redirect('admin/FileSystem', 'refresh');
         } else {
-            $this->session->set_flashdata('folder_delete_err', '<b>Oh Snap!</b> Folder not is deleted. Please try again!');
+            $this->session->set_flashdata('folder_delete_err', '<b>Oh Snap!</b> Folder is not deleted. Please try again!');
             redirect('admin/FileSystem', 'refresh');
         }
     }
@@ -185,7 +218,21 @@ class FileSystem extends MY_Controller
             $this->session->set_flashdata('file_delete_succ', '<b>Heads up!</b> File deleted successfully.');
             redirect('admin/FileSystem/viewFolder/' . $folder_id, 'refresh');
         } else {
-            $this->session->set_flashdata('file_delete_err', '<b>Oh Snap!</b> File not is deleted. Please try again!');
+            $this->session->set_flashdata('file_delete_err', '<b>Oh Snap!</b> File is not deleted. Please try again!');
+            redirect('admin/FileSystem/viewFolder/' . $folder_id, 'refresh');
+        }
+    }
+
+    public function deleteSubFolder($id, $folder_id)
+    {
+
+        $value = $this->file_m->deleteSubFolder($id);
+
+        if ($value == true) {
+            $this->session->set_flashdata('sub_folder_delete_succ', '<b>Heads up!</b> Sub Folder deleted successfully.');
+            redirect('admin/FileSystem/viewFolder/' . $folder_id, 'refresh');
+        } else {
+            $this->session->set_flashdata('sub_folder_delete_err', '<b>Oh Snap!</b> Sub Folder is not deleted. Please try again!');
             redirect('admin/FileSystem/viewFolder/' . $folder_id, 'refresh');
         }
     }

@@ -278,7 +278,6 @@ class FileSystemModel extends CI_Model
 
     public function createSubFolder($data)
     {
-
         $result = $this->db->insert('files_tbl', $data);
 
         if ($result ==  true) {
