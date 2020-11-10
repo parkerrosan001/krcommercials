@@ -4,7 +4,18 @@
         <div class="row">
             <div class="col-12 text-center">
                 <div class="breadcumb-wrap">
-                    <h2 class="white">File System</h2>
+                    <h5 class="white">
+                        <?php
+                        if(!empty($_SESSION['breadcrumbs']) && sizeof($_SESSION['breadcrumbs']) && isset($_SESSION['breadcrumbs'])){
+                            foreach ($_SESSION['breadcrumbs'] as $value) {
+                        ?>
+                            <a href="<?php echo $value['url']; ?>" style="color: white;"><?php echo $value['directory']; ?> /</a>
+                        <?php
+                            }
+                        }
+                        ?>
+                    </h5>
+
                 </div>
             </div>
         </div>
@@ -103,16 +114,16 @@
                                         <div class="dropdown-menu dropdown-menu-right p-0">
                                             <ul class="link-list-plain no-bdr">
                                                 <li>
-                                                    <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->id; ?>" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i><span>Open</span>
+                                                    <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->unique_id; ?>" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i><span>Open</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a data-toggle="modal" id="<?php echo $folder->id; ?>" base_url="<?php echo $folder->folder_name; ?>" class="editFolder">
+                                                    <a data-toggle="modal" id="<?php echo $folder->unique_id; ?>" base_url="<?php echo $folder->folder_name; ?>" class="editFolder">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i> <span>Rename</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="<?php echo base_url() . 'FileSystem/deleteFolder/' . $folder->id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
+                                                    <a href="<?php echo base_url() . 'FileSystem/deleteFolder/' . $folder->unique_id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                         <span>Delete</span>
                                                     </a>
@@ -123,10 +134,10 @@
                                 </div>
                             </div>
                             <div class="folder-icon">
-                                <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->id; ?>"> <i class="fa fa-folder" aria-hidden="true"></i></a>
+                                <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->unique_id; ?>"> <i class="fa fa-folder" aria-hidden="true"></i></a>
                             </div>
                             <div class="folder-name">
-                                <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->id; ?>"> <span class="folder-title"><?php echo $folder->folder_name; ?></span></a>
+                                <a href="<?php echo base_url() . 'FileSystem/viewFolder/' . $folder->unique_id; ?>"> <span class="folder-title"><?php echo $folder->folder_name; ?></span></a>
                                 <br>
                                 <span>
                                     <?php

@@ -4,7 +4,17 @@
         <div class="row">
             <div class="col-12 text-center">
                 <div class="breadcumb-wrap">
-                    <h2 class="white"><?php echo $folder_name; ?></h2>
+                    <h5 class="white">
+                        <?php
+                        if (!empty($_SESSION['breadcrumbs']) && sizeof($_SESSION['breadcrumbs']) && isset($_SESSION['breadcrumbs'])) {
+                            foreach ($_SESSION['breadcrumbs'] as $value) {
+                        ?>
+                                <a href="<?php echo $value['url']; ?>" style="color: white;"><?php echo $value['directory']; ?> /</a>
+                        <?php
+                            }
+                        }
+                        ?>
+                    </h5>
                 </div>
             </div>
         </div>
@@ -117,7 +127,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <a href="<?php echo base_url() ?>FileSystem"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to folders</a>
+                <a href="<?php echo base_url() ?>FileSystem"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to FileSystem</a>
             </div>
         </div>
         <div class="row mt-3">
@@ -170,7 +180,7 @@
                                                 <?php
                                                 if ($file->type === 'Folder') {
                                                 ?>
-                                                    <a href="<?php echo base_url() . 'FileSystem/viewSubFolder/' . $file->id; ?>" class="title"><?php echo $file->display_name; ?></a>
+                                                    <a href="<?php echo base_url() . 'FileSystem/viewSubFolder/' . $file->unique_id; ?>" class="title"><?php echo $file->display_name; ?></a>
                                                 <?php
                                                 } else {
                                                 ?>
@@ -217,7 +227,7 @@
                                                 if ($file->type === 'Folder') {
                                                 ?>
                                                     <li>
-                                                        <a href="<?php echo base_url() . 'FileSystem/viewSubFolder/' . $file->id; ?>" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i><span>Open</span>
+                                                        <a href="<?php echo base_url() . 'FileSystem/viewSubFolder/' . $file->unique_id; ?>" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i><span>Open</span>
                                                         </a>
                                                     </li>
                                                 <?php
@@ -231,7 +241,7 @@
                                                 ?>
 
                                                 <li>
-                                                    <a data-toggle="modal" id="<?php echo $file->id; ?>" base_url="<?php echo $file->display_name; ?>" folder_id="<?php echo $file->folder_id; ?>" class="editFile">
+                                                    <a data-toggle="modal" id="<?php echo $file->unique_id; ?>" base_url="<?php echo $file->display_name; ?>" folder_id="<?php echo $file->parrent_unique_id; ?>" class="editFile">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i> <span>Rename</span>
                                                     </a>
                                                 </li>
@@ -240,7 +250,7 @@
                                                 if ($file->type === 'Folder') {
                                                 ?>
                                                     <li>
-                                                        <a href="<?php echo base_url() . 'FileSystem/deleteSubFolder/' . $file->id . '/' . $file->folder_id . '/viewFolder'; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
+                                                        <a href="<?php echo base_url() . 'FileSystem/deleteSubFolder/' . $file->unique_id . '/' . $file->parrent_unique_id . '/viewFolder'; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             <span>Delete</span>
                                                         </a>
@@ -249,7 +259,7 @@
                                                 } else {
                                                 ?>
                                                     <li>
-                                                        <a href="<?php echo base_url() . 'FileSystem/deleteFile/' . $file->id . '/' . $file->folder_id . '/viewFolder'; ?>" onclick="return confirm('Are you sure to delete this file?')">
+                                                        <a href="<?php echo base_url() . 'FileSystem/deleteFile/' . $file->unique_id . '/' . $file->parrent_unique_id . '/viewFolder'; ?>" onclick="return confirm('Are you sure to delete this file?')">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                             <span>Delete</span>
                                                         </a>

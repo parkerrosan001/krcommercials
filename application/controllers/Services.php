@@ -46,6 +46,7 @@ class Services extends MY_Controller
             if ($_SESSION['selected_branch'] == 'FL') {
                 $page_data = $this->service_m->fetchFLServicesPageContent();
                 $services_data = $this->service_m->fetchAllSkilledTradeServicesByBranch('FL');
+                $contact_us_data = $this->content_m->fetchFlContactUsContent();
             } else {
                 $page_data = $this->service_m->fetchCALServicesPageContent();
                 $services_data = $this->service_m->fetchAllSkilledTradeServicesByBranch('CAL');

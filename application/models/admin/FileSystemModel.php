@@ -41,7 +41,7 @@ class FileSystemModel extends CI_Model
     {
         $this->db->select("folder_name");
         $this->db->from('folders_tbl');
-        $this->db->where('id', $id);
+        $this->db->where('unique_id', $id);
         $result = $this->db->get();
         $folder_name =  $result->row();
 
@@ -58,7 +58,7 @@ class FileSystemModel extends CI_Model
     {
         $this->db->select("display_name");
         $this->db->from('files_tbl');
-        $this->db->where('id', $id);
+        $this->db->where('unique_id', $id);
         $result = $this->db->get();
         $sub_folder_name =  $result->row();
 
@@ -126,7 +126,7 @@ class FileSystemModel extends CI_Model
 
     public function renameFolder($id, $data)
     {
-        $this->db->where('id', $id);
+        $this->db->where('unique_id', $id);
         $result = $this->db->update('folders_tbl', $data);
 
         if ($result == true) {
@@ -138,12 +138,12 @@ class FileSystemModel extends CI_Model
 
     public function deleteFolder($id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('unique_id', $id);
         $result = $this->db->delete('folders_tbl');
 
         if ($result == true) {
 
-            $this->db->where('folder_id', $id);
+            $this->db->where('parrent_unique_id', $id);
             $this->db->delete('files_tbl');
             return true;
         } else {
@@ -153,13 +153,13 @@ class FileSystemModel extends CI_Model
 
     public function deleteSubFolder($id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('unique_id', $id);
         $this->db->where('type', 'Folder');
         $result = $this->db->delete('files_tbl');
 
         if ($result == true) {
 
-            $this->db->where('folder_id', $id);
+            $this->db->where('parrent_unique_id', $id);
             $this->db->delete('files_tbl');
             return true;
         } else {
@@ -171,7 +171,7 @@ class FileSystemModel extends CI_Model
     {
         $this->db->select("*");
         $this->db->from('files_tbl');
-        $this->db->where('folder_id', $folders_id);
+        $this->db->where('parrent_unique_id', $folders_id);
         $this->db->order_by('id', 'DESC');
         $result = $this->db->get();
         $files_data =  $result->result();
@@ -189,7 +189,7 @@ class FileSystemModel extends CI_Model
     {
         $this->db->select("*");
         $this->db->from('files_tbl');
-        $this->db->where('folder_id', $folders_id);
+        $this->db->where('parrent_unique_id', $folders_id);
         $this->db->order_by('id', 'DESC');
         $result = $this->db->get();
         $files_data =  $result->result();
@@ -220,7 +220,7 @@ class FileSystemModel extends CI_Model
     {
         $this->db->select("*");
         $this->db->from('files_tbl');
-        $this->db->where('folder_id', $folder_id);
+        $this->db->where('parrent_unique_id', $folder_id);
         $this->db->order_by($column, $order_by);
         $result = $this->db->get();
         $files_data =  $result->result();
@@ -238,7 +238,7 @@ class FileSystemModel extends CI_Model
     {
         $this->db->select("*");
         $this->db->from('files_tbl');
-        $this->db->where('folder_id', $folder_id);
+        $this->db->where('parrent_unique_id', $folder_id);
         $this->db->like('display_name', $search);
         $result = $this->db->get();
         $files_data =  $result->result();
@@ -266,7 +266,7 @@ class FileSystemModel extends CI_Model
 
     public function renameFile($id, $data)
     {
-        $this->db->where('id', $id);
+        $this->db->where('unique_id', $id);
         $result = $this->db->update('files_tbl', $data);
 
         if ($result == true) {

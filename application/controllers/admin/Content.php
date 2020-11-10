@@ -65,6 +65,12 @@ class Content extends MY_Controller
             $_FILES['file']['error']      = $_FILES['slider_image_fl_field']['error'];
             $_FILES['file']['size']       = $_FILES['slider_image_fl_field']['size'];
 
+            if (($_FILES['file']['size'] >= 3145728) || ($_FILES['file']['size'] == 0)) {
+                $this->session->set_flashdata('fl_slider_content_err', 'Oh Snap! Image size must be less than or equal to 3 MBs.');
+                redirect('admin/content/', 'refresh');
+                exit;
+            }
+
             $uploadPath = './uploads/';
             $config['upload_path'] = $uploadPath;
             $config['allowed_types'] = '*';
@@ -108,6 +114,12 @@ class Content extends MY_Controller
             $_FILES['file']['tmp_name']   = $_FILES['slider_image_cal_field']['tmp_name'];
             $_FILES['file']['error']      = $_FILES['slider_image_cal_field']['error'];
             $_FILES['file']['size']       = $_FILES['slider_image_cal_field']['size'];
+
+            if (($_FILES['file']['size'] >= 3145728) || ($_FILES['file']['size'] == 0)) {
+                $this->session->set_flashdata('cal_slider_content_err', 'Oh Snap! Image size must be less than or equal to 3 MBs.');
+                redirect('admin/content/', 'refresh');
+                exit;
+            }
 
             $uploadPath = './uploads/';
             $config['upload_path'] = $uploadPath;
@@ -176,7 +188,7 @@ class Content extends MY_Controller
 
             if ($width != "559" && $height != "427") {
 
-                $this->session->set_flashdata('fl_welcome_section_content_err', 'Oh Snap! Image size must be 559 x 427 pixels.');
+                $this->session->set_flashdata('fl_welcome_section_content_err', 'Oh Snap! Image dimensions must be 559 x 427 pixels.');
                 redirect('admin/content/homePageContent', 'refresh');
                 exit;
             }
@@ -233,7 +245,7 @@ class Content extends MY_Controller
 
             if ($width != "559" && $height != "427") {
 
-                $this->session->set_flashdata('fl_welcome_section_content_err', 'Oh Snap! Image size must be 559 x 427 pixels.');
+                $this->session->set_flashdata('fl_welcome_section_content_err', 'Oh Snap! Image dimensions must be 559 x 427 pixels.');
                 redirect('admin/content/homePageContent', 'refresh');
                 exit;
             }

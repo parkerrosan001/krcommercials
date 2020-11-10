@@ -16,6 +16,17 @@
                 ?>
 
                 <?php
+                if (isset($_SESSION['login__status_err'])) {
+                ?>
+                    <div class="alert alert-danger"><?php echo $_SESSION['login__status_err'] ?>
+                        <a href="<?php echo base_url() ?>Contactus">Contact Administrator</a>
+                    </div>
+
+                <?php
+                }
+                ?>
+
+                <?php
                 if (isset($_SESSION['reset_succ'])) {
                 ?>
                     <div class="alert alert-success"><?php echo $_SESSION['reset_succ'] ?></div>

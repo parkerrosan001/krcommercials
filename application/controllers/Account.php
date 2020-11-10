@@ -8,7 +8,7 @@ class Account extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->load->model("user/AccountModel", "acc_m");
         $this->session->set_userdata('current_page', 'Account');
         $this->load->model('admin/ContentModel', 'content_m');
@@ -53,7 +53,6 @@ class Account extends MY_Controller
                 'email' => $email,
                 'password' => md5($password),
                 'role' => 'User',
-                'status' => 'Active'
             );
 
             $user_data = $this->acc_m->userLoginValidate($data);
@@ -64,19 +63,24 @@ class Account extends MY_Controller
                 redirect('account', 'refresh');
             } else {
 
-                $user_id = $user_data->id;
-                $user_email = $user_data->email;
-                $user_name = $user_data->user_full_name;
-                $user_pic = $user_data->user_pic;
-                $user_branch = $user_data->user_branch;
+                if ($user_data->status == 'In-Active') {
+                    $this->session->set_flashdata("login__status_err", "Oh Snap! Your Account is disabled. Please contact administrator!");
+                    redirect('account', 'refresh');
+                } else {
+                    $user_id = $user_data->id;
+                    $user_email = $user_data->email;
+                    $user_name = $user_data->user_full_name;
+                    $user_pic = $user_data->user_pic;
+                    $user_branch = $user_data->user_branch;
 
-                $this->session->set_userdata('logged_in_id', $user_id);
-                $this->session->set_userdata('logged_in_email', $user_email);
-                $this->session->set_userdata('logged_in_name', $user_name);
-                $this->session->set_userdata('logged_in_pic', $user_pic);
-                $this->session->set_userdata('logged_in_user_branch', $user_branch);
+                    $this->session->set_userdata('logged_in_id', $user_id);
+                    $this->session->set_userdata('logged_in_email', $user_email);
+                    $this->session->set_userdata('logged_in_name', $user_name);
+                    $this->session->set_userdata('logged_in_pic', $user_pic);
+                    $this->session->set_userdata('logged_in_user_branch', $user_branch);
 
-                redirect('account/myAccount', 'refresh');
+                    redirect('account/myAccount', 'refresh');
+                }
             }
         } else {
             $this->index();

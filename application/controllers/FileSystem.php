@@ -32,6 +32,23 @@ class FileSystem extends MY_Controller
         $folders_data = $this->file_m->fetchAllFolders();
         $recent_files_data = $this->file_m->fetchRecentFiles();
 
+        $path = array(
+
+            'directory' => 'File System',
+            'url' => base_url() . 'FileSystem',
+            'id' => 'root'
+        );
+
+        if (isset($_SESSION['breadcrumbs'])) {
+
+            unset($_SESSION['breadcrumbs']);
+
+            $_SESSION['breadcrumbs'][] = $path;
+        } else {
+
+            $_SESSION['breadcrumbs'][] = $path;
+        }
+
         $data['view_to_load'] = "user/pages/files_system";
         $data['page_title'] = "File System";
         $data['folders_data'] = $folders_data;
@@ -48,6 +65,7 @@ class FileSystem extends MY_Controller
 
             $data = array(
                 'acc_id' => $_SESSION['logged_in_id'],
+                'unique_id' => time(),
                 'folder_name' => $folder_name,
                 'branch' => $_SESSION['logged_in_user_branch']
             );
@@ -185,8 +203,44 @@ class FileSystem extends MY_Controller
         $data['files_data'] = $files_data;
         $data['folder_id'] = $id;
         $data['folder_name'] = $folder_name->folder_name;
+
+        $path = array(
+
+            'directory' => $folder_name->folder_name,
+            'url' => base_url() . 'FileSystem/viewFolder/' . $id,
+            'id' => $id
+        );
+
+        if (isset($_SESSION['breadcrumbs'])) {
+            $res = $this->searchDirectory($path['directory'], $_SESSION['breadcrumbs']);
+
+            if ($res == false) {
+                $_SESSION['breadcrumbs'][] = $path;
+            } else {
+                $new_arr = array();
+
+                foreach ($_SESSION['breadcrumbs'] as $value) {
+                    $new_arr[] = $value;
+
+                    if ($value['id'] === $id) {
+                        break;
+                    }
+                }
+                $_SESSION['breadcrumbs'] = $new_arr;
+            }
+        }
         $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
+    }
+
+    public function searchDirectory($directory, $array)
+    {
+        foreach ($array as $val) {
+            if ($val['directory'] === $directory) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -252,8 +306,9 @@ class FileSystem extends MY_Controller
                 $attachmentData = $this->upload->data();
 
                 $data = array(
+                    'unique_id' => time(),
                     'acc_id' => $_SESSION['logged_in_id'],
-                    'folder_id' => $folder_id,
+                    'parrent_unique_id' => $folder_id,
                     'file_name' => $attachmentData['file_name'],
                     'display_name' => $attachmentData['file_name'],
                     'file_ext' => pathinfo($image, PATHINFO_EXTENSION),
@@ -286,7 +341,7 @@ class FileSystem extends MY_Controller
             $column = 'display_name';
             $order_by = 'ASC';
         } else {
-            $column = 'file_name';
+            $column = 'display_name';
             $order_by = 'DESC';
         }
 
@@ -319,7 +374,7 @@ class FileSystem extends MY_Controller
             $column = 'display_name';
             $order_by = 'ASC';
         } else {
-            $column = 'file_name';
+            $column = 'display_name';
             $order_by = 'DESC';
         }
 
@@ -440,8 +495,9 @@ class FileSystem extends MY_Controller
             $controller = $this->input->post('controller_field');
 
             $data = array(
+                'unique_id' => time(),
                 'acc_id' => $_SESSION['logged_in_id'],
-                'folder_id' => $parrent_folder,
+                'parrent_unique_id' => $parrent_folder,
                 'display_name' => $folder_name,
                 'type' => 'Folder',
                 'branch' => $_SESSION['logged_in_user_branch']
@@ -482,6 +538,31 @@ class FileSystem extends MY_Controller
         $data['files_data'] = $files_data;
         $data['folder_id'] = $id;
         $data['sub_folder_name'] = $sub_folder_name->display_name;
+
+        $path = array(
+
+            'directory' => $sub_folder_name->display_name,
+            'url' => base_url() . 'FileSystem/viewSubFolder/' . $id,
+            'id' => $id
+        );
+        if (isset($_SESSION['breadcrumbs'])) {
+            $res = $this->searchDirectory($path['directory'], $_SESSION['breadcrumbs']);
+
+            if ($res == false) {
+                $_SESSION['breadcrumbs'][] = $path;
+            } else {
+                $new_arr = array();
+
+                foreach ($_SESSION['breadcrumbs'] as $value) {
+                    $new_arr[] = $value;
+
+                    if ($value['id'] === $id) {
+                        break;
+                    }
+                }
+                $_SESSION['breadcrumbs'] = $new_arr;
+            }
+        }
         $data['contact_us_data'] = $this->contact_us_data;
         $this->load->view('user/layouts/main_layout', $data);
     }

@@ -38,19 +38,19 @@
                                     <?php
                                     if ($staff->facebook != '') {
                                     ?>
-                                        <li><a href="<?php echo $staff->facebook; ?>"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="<?php echo $staff->facebook; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
                                     <?php
                                     }
 
                                     if ($staff->twitter != '') {
                                     ?>
-                                        <li><a href="<?php echo $staff->twitter; ?>"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="<?php echo $staff->twitter; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
                                     <?php
                                     }
 
                                     if ($staff->google_plus != '') {
                                     ?>
-                                        <li><a href="<?php echo $staff->google_plus; ?>"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="<?php echo $staff->google_plus; ?>" target="_blank"><i class="fa fa-google-plus"></i></a></li>
                                     <?php
                                     }
                                     ?>
