@@ -165,7 +165,7 @@
 
             ?>
         </div>
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 text-center mt-5">
             <a href="<?php echo base_url() ?>projects" class="view-btn">View More</a>
         </div>
     </div>
