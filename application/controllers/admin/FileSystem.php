@@ -34,6 +34,7 @@ class FileSystem extends MY_Controller
 
             $data = array(
                 'acc_id' => $_SESSION['logged_in_admin_id'],
+                'unique_id' => time(),
                 'folder_name' => $folder_name,
                 'branch' => $branch
             );
@@ -65,8 +66,9 @@ class FileSystem extends MY_Controller
 
             $data = array(
                 'acc_id' => $_SESSION['logged_in_admin_id'],
+                'unique_id' => time(),
+                'parrent_unique_id' => $folder_id,
                 'display_name' => $folder_name,
-                'folder_id' => $folder_id,
                 'type' => 'Folder',
                 'branch' => $branch
             );
@@ -193,7 +195,8 @@ class FileSystem extends MY_Controller
 
                 $data = array(
                     'acc_id' => $_SESSION['logged_in_admin_id'],
-                    'folder_id' => $folder_id,
+                    'unique_id' => time(),
+                    'parrent_unique_id' => $folder_id,
                     'file_name' => $attachmentData['file_name'],
                     'display_name' => $attachmentData['file_name'],
                     'file_ext' => pathinfo($image, PATHINFO_EXTENSION),

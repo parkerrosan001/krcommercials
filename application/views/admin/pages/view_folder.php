@@ -164,7 +164,7 @@
                                     <tr>
                                         <td><?php echo $no; ?></td>
                                         <td>
-                                            <a data-toggle="modal" id="<?php echo $files->id; ?>" base_url="<?php echo $files->display_name; ?>" folder_id="<?php echo $files->folder_id; ?>" branch="<?php echo $files->branch; ?>" class="renameFile text-success">
+                                            <a data-toggle="modal" id="<?php echo $files->unique_id; ?>" base_url="<?php echo $files->display_name; ?>" folder_id="<?php echo $files->parrent_unique_id; ?>" branch="<?php echo $files->branch; ?>" class="renameFile text-success">
                                                 <label class="text-primary">
                                                     <i class="fa fa-edit"></i>
                                                 </label>
@@ -172,7 +172,7 @@
                                             <?php
                                             if ($files->type == 'Folder') {
                                             ?>
-                                                <a href="<?php echo base_url() . 'admin/FileSystem/viewFolder/' . $files->id; ?>">
+                                                <a href="<?php echo base_url() . 'admin/FileSystem/viewFolder/' . $files->unique_id; ?>">
                                                     <label class="text-success">
                                                         <i class="fas fa-eye"></i>
                                                     </label>
@@ -189,7 +189,7 @@
                                             }
                                             ?>
 
-                                            <a href="<?php echo base_url() . 'admin/FileSystem/deleteSubFolder/' . $files->id . '/' . $files->folder_id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
+                                            <a href="<?php echo base_url() . 'admin/FileSystem/deleteSubFolder/' . $files->unique_id . '/' . $files->parrent_unique_id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
                                                 <label class="text-danger">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </label>

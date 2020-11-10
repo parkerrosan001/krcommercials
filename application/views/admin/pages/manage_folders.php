@@ -98,19 +98,19 @@
                                     <tr>
                                         <td><?php echo $no; ?></td>
                                         <td>
-                                            <a data-toggle="modal" id="<?php echo $folder->id; ?>" base_url="<?php echo $folder->folder_name; ?>" branch="<?php echo $folder->branch; ?>" class="renameFolder text-success">
+                                            <a data-toggle="modal" id="<?php echo $folder->unique_id; ?>" base_url="<?php echo $folder->folder_name; ?>" branch="<?php echo $folder->branch; ?>" class="renameFolder text-success">
                                                 <label class="text-primary">
                                                     <i class="fa fa-edit"></i>
                                                 </label>
                                             </a>
                                             
-                                            <a href="<?php echo base_url() . 'admin/FileSystem/viewFolder/' . $folder->id; ?>">
+                                            <a href="<?php echo base_url() . 'admin/FileSystem/viewFolder/' . $folder->unique_id; ?>">
                                                 <label class="text-success">
                                                     <i class="fas fa-eye"></i>
                                                 </label>
                                             </a>
                                             
-                                            <a href="<?php echo base_url() . 'admin/FileSystem/deleteFolder/' . $folder->id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
+                                            <a href="<?php echo base_url() . 'admin/FileSystem/deleteFolder/' . $folder->unique_id; ?>" onclick="return confirm('Are you sure to delete this folder? All Files inside this folder will be lost.')">
                                                 <label class="text-danger">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </label>

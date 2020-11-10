@@ -254,7 +254,7 @@ class FileSystemModel extends CI_Model
 
     public function deleteFile($id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('unique_id', $id);
         $result = $this->db->delete('files_tbl');
 
         if ($result == true) {
