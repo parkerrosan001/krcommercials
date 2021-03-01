@@ -695,6 +695,29 @@ input:focus , .btn-success.focus, .btn-success:focus{
     width: 100%;
     height: 300px;
 }
+.user-name  .link-list-plain {
+    display: block !important;
+    margin-top: 8px;
+    padding: 10px !important;
+    width: 154px;
+    left: 2rem;
+}
+.user-name .link-list-plain li{
+    margin-left: 0px;
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+.user-name .link-list-plain a {
+    padding: 0px 0px 4px 0px;
+    width: 132px;
+}
+.team-content p{
+    margin-bottom: 54px;
+}
+
+.team-wrap:hover .team-content p{
+    margin-bottom: 20px;
+}
 @media (max-width: 991px) and (min-width: 768px){
 .spacial-area, .project-area, .service-area, .team-area, .blog-area, .footer-top {
     padding: 35px 0px 70px !important;
@@ -726,10 +749,13 @@ input:focus , .btn-success.focus, .btn-success:focus{
     .sticky-menu .responsive-menu-wrap .slicknav_nav {
         top: 18px;
     }
+    .dropbtn{
+        color: #fff;
+    }
 }
 @media (max-width: 575px){
     .responsive-menu-wrap .slicknav_menu {
-        padding: 28px 0px !important;
+        padding: 17px 0px !important;
         font-size: 30px;
     }
     .responsive-menu-wrap {
@@ -737,7 +763,7 @@ input:focus , .btn-success.focus, .btn-success:focus{
         left: 3rem;
     }
     .responsive-menu-wrap .slicknav_nav {
-        top: 20px !important;
+        top: 10px !important;
         right: 0rem !important;
         width: 412px !important;
     }
@@ -762,39 +788,58 @@ input:focus , .btn-success.focus, .btn-success:focus{
         width: 100%;
         height: 419px;
     }
+    .dropbtn{
+        color: #fff;
+    }
+    .user-name {
+        position: relative !important;
+        transform: none !important;
+        left: 4% !important;
+    }
+    .user-name .link-list-plain{
+        margin-left: 0px;
+    }
     
 }
 
 @media (max-width: 375px){
     .responsive-menu-wrap .slicknav_nav {
-        top: 20px !important;
-        right: 0rem !important;
-        width: 377px !important;
+        top: 8px !important;
+        left: 3.5% !important;
+        width: 373px !important;
     }
     .responsive-menu-wrap {
         position: relative;
         left: 2rem;
+    }
+    .dropbtn{
+        color: #fff;
     }
 }
 @media (max-width: 360px){
     .responsive-menu-wrap .slicknav_nav {
-        top: 20px !important;
-        right: 0rem !important;
-        width: 363px !important;
+        top: 8px !important;
+        width: 358px !important;
+        left: 3.3% !important;
     }
     .responsive-menu-wrap {
         position: relative;
         left: 2rem;
     }
+    .dropbtn{
+        color: #fff;
+    }
 }
 @media (max-width: 320px){
     .responsive-menu-wrap .slicknav_nav {
-        top: 20px !important;
-        right: .2rem !important;
+        top: 8px !important;
         width: 326px !important;
     }
     .responsive-menu-wrap {
         position: relative;
         left: 2rem;
+    }
+    .dropbtn{
+        color: #fff;
     }
 }

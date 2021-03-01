@@ -167,6 +167,7 @@ img {
 .btn-theme-1{
     background:#7e7d885c !important;
     color: #fff !important;
+    margin-bottom: 10px;
 }
 .btn-theme-1:hover{
     background:#003466 !important;
@@ -2592,4 +2593,11 @@ xclip
 
 .hero-section.clip .title__effect.is-visible {
   opacity: 1;
+}
+
+@media (max-width: 500px){
+    .btn-theme-1{
+        padding: 11px 21px !important;  
+        margin-left: 2%;
+    }
 }

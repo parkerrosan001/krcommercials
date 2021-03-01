@@ -47,7 +47,7 @@
 
                                 <!-- Options btn color: .btn-success | .btn-info | .btn-warning | .btn-danger | .btn-primary -->
                                 <div class="title__action">
-                                    <a href="<?php echo base_url() ?>home/landing/FL" class="btn btn-info btn-theme-1">&nbsp;Florida&nbsp;&nbsp;</a>
+                                    <a href="<?php echo base_url() ?>home/landing/FL" class="btn btn-info btn-theme-1">&nbsp;&nbsp;Florida&nbsp;&nbsp;</a>
                                     <a href="<?php echo base_url() ?>home/landing/CAL" class="btn btn-info btn-theme-1">California</a>
                                 </div>
                             </div>

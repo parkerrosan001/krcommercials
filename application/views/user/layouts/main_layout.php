@@ -69,7 +69,25 @@
               if (isset($_SESSION['logged_in_id'])) {
               ?>
                 <li class="dropdown">
-                  <div class="dropdown">
+                    <a class=" dropdown-toggle"  data-toggle="dropdown" style="cursor:pointer"><?php if (isset($_SESSION['logged_in_name'])) {
+                          echo $_SESSION['logged_in_name'];
+                        } ?> 
+                    </a >
+                    <div class="dropdown-menu dropdown-menu-right p-0 user-name">
+                        <ul class="link-list-plain no-bdr">
+                            <li>
+                               <a href="<?php echo base_url() ?>FileSystem">File System</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>account/myAccount">Profile</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>account/logout">Logout</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                  <!--<div class="dropdown">
                     <button onclick="myFunction()" class="dropbtn"> <?php if (isset($_SESSION['logged_in_name'])) {
                                                                       echo $_SESSION['logged_in_name'];
                                                                     } ?> <i class="fa fa-caret-down" aria-hidden="true"></i></button>
@@ -78,7 +96,7 @@
                       <a href="<?php echo base_url() ?>account/myAccount">Profile</a>
                       <a href="<?php echo base_url() ?>account/logout">Logout</a>
                     </div>
-                  </div>
+                    </div>-->
                 </li>
               <?php
               } else {
@@ -230,7 +248,7 @@
   </script>
 
   <script>
-    function myFunction() {
+    /*function myFunction() {
       document.getElementById("myDropdown").classList.toggle("show");
     }
     window.onclick = function(event) {
@@ -244,7 +262,7 @@
           }
         }
       }
-    }
+    }*/
   </script>
 
   <script>
